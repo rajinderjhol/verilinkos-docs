@@ -11,6 +11,20 @@ The Verifiable Action Protocol (VAP) v3.5 is an open, vendor-neutral specificati
 ## 2. Receipt Data Model
 An implementation MUST validate against the normative schema provided in `schemas/vap-receipt-v3.5.schema.json`.
 
+### VAP Protocol Scope
+
+| Component | Classification | Description |
+|:---|:---|:---|
+| **Receipt / Hashing / Signature / Verification** | **Core** | Essential protocol features. |
+| **Delegation / Mesh** | Extension | Multi-hop agent networks. |
+| **DID / Identity** | Extension | Agent identification (W3C DID). |
+| **Post-Quantum (PQ)** | Extension | Hybrid ML-DSA-87 signatures. |
+| **ZK / BBS+** | Extension | Privacy-preserving proofs. |
+| **Commerce / x402** | Extension | Financial settlement & escrow. |
+| **Semantic / Ontology** | Extension | Semantic graph-based governance (RDF). |
+| **Compliance** | Extension | EU AI Act automated filings. |
+
+
 ---
 
 ## 3. Normative Cryptographic Specification
