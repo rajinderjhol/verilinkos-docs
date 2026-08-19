@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "VAP Receipt",
+  "type": "object",
+  "required": ["receipt_id", "action", "decision", "context", "proof"],
+  "properties": {
+    "receipt_id": { "type": "string" },
+    "action": {
+      "type": "object",
+      "required": ["type", "target"],
+      "properties": {
+        "type": { "type": "string" },
+        "target": { "type": "string" },
+        "parameters": { "type": "object" },
+        "metadata": { "type": "object" }
+      }
+    },
+    "decision": {
+      "type": "object",
+      "required": ["verdict"],
+      "properties": {
+        "verdict": { "type": "string", "enum": ["allow", "block"] },
+        "confidence": { "type": "number" }
+      }
+    },
+    "context": {
+      "type": "object",
+      "required": ["policy_id", "timestamp"],
+      "properties": {
+        "policy_id": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      }
+    },
+    "quality_scores": { "type": "object" },
+    "cost": { "type": "object" },
+    "proof": {
+      "type": "object",
+      "required": ["scheme", "signature", "signer_public_key", "merkle_root"],
+      "properties": {
+        "scheme": { "type": "string" },
+        "signature": { "type": "string" },
+        "pq_signature": { "type": "string" },
+        "signer_public_key": { "type": "string" },
+        "pq_public_key": { "type": "string" },
+        "merkle_root": { "type": "string" },
+        "merkle_path": { "type": "array", "items": { "type": "string" } },
+        "anchors": { "type": "array" }
+      }
+    }
+  }
+}
