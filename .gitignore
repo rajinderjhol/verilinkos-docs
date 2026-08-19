@@ -1,0 +1,51 @@
+# LaTeX artifacts
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.blg
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.nav
+*.snm
+*.vrb
+*.dvi
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+*.bak
+*~
+
+# Compiled PDFs (except final)
+*_draft.pdf
+*_wip.pdf
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# Python
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+npm-debug.log
+
+# Build directories
+build/
+dist/
+target/
+
+# GitHub
+.github/
