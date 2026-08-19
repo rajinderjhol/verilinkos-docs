@@ -15,10 +15,11 @@ If you are an engineer, architect, or implementer:
 
 ## 📚 Repository Structure
 
-
 - `academic/`: Formal papers and theoretical foundations.
 - `whitepapers/`: Deep dives into specific capabilities and market vision.
-- `enterprise/`: Architectural overviews and implementation guides for enterprise.
+- `protocols/`: Technical protocol specifications (VAP, etc.)
+- `technical/`: Deployment, integration, and quickstart guides.
+- `enterprise/`: Architectural overviews and enterprise implementation.
 - `investor/`: Executive summaries and strategic roadmap.
 - `blog-posts/`: Thought leadership and product updates.
 - `references/`: Supporting documentation and research.
@@ -32,8 +33,11 @@ If you are an engineer, architect, or implementer:
 - **Agentic Commerce**: x402 micropayments and trust-weighted settlement.
 - **Action Chain**: End-to-end provenance for AI-generated assets.
 
-## 🛠 Usage
+## 🛠 Self-Service Resources
 
 This documentation is designed to support the development, deployment, and governance of agentic systems using VeriLinkOS.
 
-For technical implementation details, contact rajinderjhol@gmail.com 
+For implementation details, see:
+- [VAP Protocol Specification](protocols/vap/v3.5/specification.md)
+- [Getting Started Guide](technical/getting-started.md)
+- [API Reference](technical/api-reference.md)
