@@ -26,4 +26,4 @@ VeriLinkOS is the sovereign autonomy engine for the agentic web. It provides the
 
 This documentation is designed to support the development, deployment, and governance of agentic systems using VeriLinkOS.
 
-For technical implementation details, see the [VeriLinkOS main repository](https://github.com/rajinderjhol/VeriLinkOS).
+For technical implementation details, contact rajinderjhol@gmail.com 

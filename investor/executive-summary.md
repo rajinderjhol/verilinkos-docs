@@ -26,5 +26,5 @@ VeriLinkOS is positioned to lead the **$64.5 Billion Agentic AI Governance Marke
 -   **Horizon 3 (2027+)**: Achieve FIPS 140-3 certification and expand into government and defense.
 
 ---
-**Founder & CEO**: Rajinder Jhol
-**Website**: [verilink.io](https://verilink.io)
+**Founder & CEO**: Rajinder Jhol / rajinderjhol@gmail.com 
+
