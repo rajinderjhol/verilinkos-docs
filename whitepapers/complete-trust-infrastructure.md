@@ -17,38 +17,38 @@ In an era where AI agents are making autonomous decisions that impact businesses
 ## 🏛️ The Five Layers of VeriLinkOS
 
 VeriLinkOS delivers a complete, integrated trust stack that no competitor can match:
+```text
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│ THE VERILINKOS TRUST STACK │
+│                      THE VERILINKOS TRUST STACK                             │
 ├─────────────────────────────────────────────────────────────────────────────┤
-│ │
-│ ┌─────────────────────────────────────────────────────────────────┐ │
-│ │ LAYER 5: TRUST ECOSYSTEM VeriLinkOS │ │
-│ │ Open Standard (VAP) • SDKs • GitHub Actions • Community │ │
-│ └─────────────────────────────────────────────────────────────────┘ │
-│ ↑ │
-│ ┌─────────────────────────────────────────────────────────────────┐ │
-│ │ LAYER 4: INSURANCE VeriLink │ │
-│ │ Dynamic Premiums • Parametric Claims • Reinsurance API Assurance│ │
-│ └─────────────────────────────────────────────────────────────────┘ │
-│ ↑ │
-│ ┌─────────────────────────────────────────────────────────────────┐ │
-│ │ LAYER 3: ASSURANCE VAP Receipts │ │
-│ │ Cryptographic Proof • Blockchain Anchoring • Court-Admissible │ │
-│ └─────────────────────────────────────────────────────────────────┘ │
-│ ↑ │
-│ ┌─────────────────────────────────────────────────────────────────┐ │
-│ │ LAYER 2: COMPLIANCE Regulatory │ │
-│ │ EU AI Act • ISO 42001 • NYC LL144 • DORA • HIPAA Filing │ │
-│ └─────────────────────────────────────────────────────────────────┘ │
-│ ↑ │
-│ ┌─────────────────────────────────────────────────────────────────┐ │
-│ │ LAYER 1: GOVERNANCE Guardian │ │
-│ │ @enforce • LangChain • AutoGen • CrewAI • HITL • ZK-Proofs │ │
-│ └─────────────────────────────────────────────────────────────────┘ │
-│ │
+│                                                                             │
+│ ┌─────────────────────────────────────────────────────────────────┐         │
+│ │ LAYER 5: TRUST ECOSYSTEM VeriLinkOS                             │         │
+│ │ Open Standard (VAP) • SDKs • GitHub Actions • Community         │         │
+│ └─────────────────────────────────────────────────────────────────┘         │
+│ ↑                                                                           │
+│ ┌─────────────────────────────────────────────────────────────────┐         │
+│ │ LAYER 4: INSURANCE VeriLink                                     │         │
+│ │ Dynamic Premiums • Parametric Claims • Reinsurance API Assurance│         │
+│ └─────────────────────────────────────────────────────────────────┘         │
+│ ↑                                                                           │
+│ ┌─────────────────────────────────────────────────────────────────┐         │
+│ │ LAYER 3: ASSURANCE VAP Receipts                                 │         │
+│ │ Cryptographic Proof • Blockchain Anchoring • Court-Admissible   │         │
+│ └─────────────────────────────────────────────────────────────────┘         │
+│ ↑                                                                           │
+│ ┌─────────────────────────────────────────────────────────────────┐         │
+│ │ LAYER 2: COMPLIANCE Regulatory                                  │         │
+│ │ EU AI Act • ISO 42001 • NYC LL144 • DORA • HIPAA Filing         │         │
+│ └─────────────────────────────────────────────────────────────────┘         │
+│ ↑                                                                           │
+│ ┌─────────────────────────────────────────────────────────────────┐         │
+│ │ LAYER 1: GOVERNANCE Guardian                                    │         │
+│ │ @enforce • LangChain • AutoGen • CrewAI • HITL • ZK-Proofs      │         │
+│ └─────────────────────────────────────────────────────────────────┘         │
+│                                                                             │
 └─────────────────────────────────────────────────────────────────────────────┘
-
-text
+```
 
 Each layer builds on the one below it. Each layer is cryptographically bound to the others. The result is the most complete trust infrastructure ever built for AI.
 
