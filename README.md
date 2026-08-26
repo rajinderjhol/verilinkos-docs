@@ -31,6 +31,7 @@ If you are an engineer, architect, or implementer:
 - **Verifiable Action Protocol (VAP)**: Cryptographic evidence and non-repudiation.
 - **Trust Passports**: Portable W3C DID identities for AI agents.
 - **Agentic Commerce**: x402 micropayments and trust-weighted settlement.
+- **Gap Governance**: Cryptographic bridging of the Permit-to-Settlement gap.
 - **Action Chain**: End-to-end provenance for AI-generated assets.
 
 ## 🛠 Self-Service Resources

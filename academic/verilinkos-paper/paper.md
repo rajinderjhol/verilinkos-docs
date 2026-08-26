@@ -574,6 +574,18 @@ class VeriLinkMCPClient:
             }
         )
 ```
+)
+
+#### 5.3.4. Gap Governance and Transactional Chaining
+
+VeriLinkOS v3.5 introduces formal governance of the "Permit-to-Settlement Gap." This is the temporal interval between an authorization decision (Permit) and its irreversible execution (Settlement). To bridge this gap without requiring cryptographic tracking of the execution itself, VeriLinkOS implements **Intent Chaining**:
+
+1.  **Intent ID Generation**: At the moment of Permit, a unique `intent_id` is generated and cryptographically bound to the Permit receipt.
+2.  **Lifecycle Mapping**: Receipts transition through a defined `ReceiptStatus` lifecycle: `permit_granted` → `executing` → `settlement_complete`.
+3.  **Cryptographic Chaining**: The final Settlement receipt includes a `parent_receipt_id` referencing the Permit receipt, and the same `intent_id`.
+4.  **Temporal Boundaries**: Execution is bounded by an `execution_deadline`, after which the authorization is considered stale.
+
+This mechanism ensures that an auditor can verifiably link the final settled state back to the original authorized intent, even if the system crashed or was interrupted during execution.
 
 ### 5.4. Testing and Quality
 

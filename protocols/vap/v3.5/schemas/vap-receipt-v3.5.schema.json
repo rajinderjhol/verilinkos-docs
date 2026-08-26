@@ -5,6 +5,15 @@
   "required": ["receipt_id", "action", "decision", "context", "proof"],
   "properties": {
     "receipt_id": { "type": "string" },
+    "intent_id": { "type": "string", "description": "MGF D4: Unique cryptographically bound identifier for the specific action intent." },
+    "parent_receipt_id": { "type": "string", "description": "Link to the original PERMIT receipt, enabling verifiable chaining to the SETTLEMENT receipt." },
+    "execution_status": { 
+      "type": "string", 
+      "enum": ["permit_granted", "executing", "settlement_complete", "settlement_failed", "blocked"],
+      "description": "Formal lifecycle state of the action."
+    },
+    "execution_deadline": { "type": "string", "format": "date-time", "description": "Maximum window allowed for execution before governance failure." },
+    "timeout_handled": { "type": "boolean", "default": false, "description": "Flag to track if system has responded to an expired deadline." },
     "action": {
       "type": "object",
       "required": ["type", "target"],

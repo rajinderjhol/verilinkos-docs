@@ -183,8 +183,9 @@ VeriLinkOS provides cryptographic proof for every stage of the AI lifecycle:
 | 7 | **BBS+ Selective Disclosure** | Granular, least-privilege proof |
 | 8 | **P2P CRDT Mesh** | Air-gapped, decentralized trust |
 | 9 | **Parametric Insurance** | Self-executing cryptographic claims |
-| 10 | **Open Standard** | VAP Specification v3.0 |
-| 11 | **1-Click Sector Provisioning** | Banking, Healthcare, Defense |
+| 10 | **Open Standard** | VAP Specification v3.5 |
+| 11 | **Gap Governance** | Permit-to-Settlement chaining |
+| 12 | **1-Click Sector Provisioning** | Banking, Healthcare, Defense |
 
 ---
 
@@ -319,6 +320,7 @@ VeriLinkOS has open-sourced the VAP (Verifiable Action Protocol) specification, 
 - ✅ Ed25519 signature specification
 - ✅ Merkle tree hashing standard
 - ✅ 12-stage Action Chain
+- ✅ Gap Governance (Permit-to-Settlement Chaining)
 - ✅ ML-BOM binding
 - ✅ LLM quality scores
 - ✅ FinOps cost attestation

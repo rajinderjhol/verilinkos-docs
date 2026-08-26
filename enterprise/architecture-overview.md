@@ -27,6 +27,13 @@ Generates Verifiable Action Protocol (VAP) receipts, Merkle tree batching, and b
 ### 5. Asset Protection Layer (Digital Title Infrastructure)
 Provides a cryptographically verifiable **Chain of Custody** for digital assets and tokenized Real-World Assets (RWAs). It links every event into an **Action Chain**, creating a legal and technical record.
 
+### 6. Gap Governance & Transactional Finality
+VeriLinkOS bridges the "Permit-to-Settlement Gap"—the interval between an authorization decision and its irreversible execution. It tracks the transactional state of every intent using:
+- **Intent Tracking**: Cryptographically binding authorization to future execution via `intent_id`.
+- **Chained Evidence**: Verifiably linking SETTLEMENT receipts to original PERMIT receipts.
+- **Temporal Enforcement**: Monitoring execution deadlines and automatically handling timeouts or stale authorizations.
+- **Lifecycle Visualization**: Providing real-time dashboard visibility into the `permit_granted` → `executing` → `settlement_complete` lifecycle.
+
 ## 🔌 Sovereign Governance Switchboard (MCP)
 100% compliant with the Model Context Protocol (MCP) 2026-07-28 specification, VeriLinkOS acts as a gateway for any MCP client (Cursor, Claude, AutoGen) to enforce governance and settlement.
 

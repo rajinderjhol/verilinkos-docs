@@ -38,13 +38,32 @@ To ensure deterministic verification across independent implementations, receipt
 5. **UTF-8 Encoding**: All strings MUST be UTF-8 encoded.
 
 ### 3.2 Signing
-The signature covers the canonicalized JSON representation of the `action`, `decision`, `context`, `quality_scores`, and `cost` blocks.
+The signature covers the canonicalized JSON representation of the `receipt_id`, `action`, `decision`, `context`, `execution_status`, `quality_scores`, `cost`, `intent_id`, `parent_receipt_id`, `execution_deadline`, and `timeout_handled` blocks.
 - **Algorithm**: `ed25519` for classical signatures; `ed25519_mldsa87_hybrid` for quantum-resistant signatures.
 - **Encoding**: Hexadecimal encoding for signature outputs.
 
 ---
 
-## 4. VAP Receipt Verification Algorithm
+## 4. Execution Lifecycle & Gap Governance
+VAP v3.5 formalizes the transactional state between authorization (**Permit**) and finality (**Settlement**).
+
+### 4.1 Receipt Status Lifecycle
+An implementation MUST support the following execution states:
+- `permit_granted`: Authorization issued; execution pending.
+- `executing`: Action in progress (e.g., HITL review or system task).
+- `settlement_complete`: Action successfully finished and cryptographically anchored.
+- `settlement_failed`: Action failed or execution window expired.
+- `blocked`: Authorization denied by policy.
+
+### 4.2 Cryptographic Chaining
+To bridge the Permit-to-Settlement gap, receipts use the following fields:
+- `intent_id`: A unique identifier for the specific action intent, generated at PERMIT time.
+- `parent_receipt_id`: Links a SETTLEMENT receipt back to its originating PERMIT receipt, creating a verifiable audit chain.
+- `execution_deadline`: Defines the temporal boundary for valid execution.
+
+---
+
+## 5. VAP Receipt Verification Algorithm
 An implementation MUST execute the following steps to verify a receipt:
 
 1. **Parse receipt**: Deserialize JSON.
@@ -61,22 +80,22 @@ An implementation MUST execute the following steps to verify a receipt:
 
 ---
 
-## 5. Threat Model & Security
+## 6. Threat Model & Security
 Implementations MUST refer to `security/threat-model.md` for comprehensive protection against replay attacks, key compromise, and manipulation.
 
 ---
 
-## 6. Lifecycle & Mesh Extensions (v3.5)
+## 7. Lifecycle & Mesh Extensions (v3.5)
 *(Refers to previous specification content regarding 12-stage lifecycle, delegation DAGs, trust scoring, ZK, and commerce extensions.)*
 
 ---
 
-## 7. Conformance & Test Vectors
+## 8. Conformance & Test Vectors
 Implementations MUST pass the conformance tests defined in the `conformance/` directory, including valid and invalid JSON vectors.
 
 ---
 
-## 8. How to Contribute
+## 9. How to Contribute
 1. Open an issue on GitHub.
 2. Submit a pull request with proposed changes.
 3. Join the community discussion forum.

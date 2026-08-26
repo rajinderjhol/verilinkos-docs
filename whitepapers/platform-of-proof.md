@@ -982,9 +982,16 @@ Existing systems remain the **system of operation**.
 
 VeriLinkOS becomes the **system of evidence**.
 
+## 21.2 The Permit-to-Settlement Audit Chain
+One of the most critical applications of the Platform of Proof is bridging the temporal gap between authorization and finality. VeriLinkOS v3.5 formalizes this through cryptographically linked receipts:
+- **PERMIT Receipt**: Proves that an action was authorized by policy at a specific time. Includes an `intent_id`.
+- **SETTLEMENT Receipt**: Proves that the action was successfully completed. Includes the same `intent_id` and a `parent_receipt_id` pointing to the PERMIT.
+- **Verifiable Execution Gap**: Any auditor can verify that a settled action corresponds exactly to a prior authorization, detecting unauthorized executions or authorizations that were never fulfilled.
+
 ---
 
-# 22. Why This Matters for Swiss AI Standardization
+## 22. Why This Matters for Swiss AI Standardization
+
 
 Switzerland is well positioned to explore a vendor-neutral evidence standard for sovereign AI.
 
