@@ -10,8 +10,8 @@ If you are an engineer, architect, or implementer:
 *   **The Core Protocol:** Start with the [VAP v3.5 Specification](protocols/vap/v3.5/specification.md).
 *   **Security Analysis:** Review the [Threat Model](protocols/vap/v3.5/security/threat-model.md) and [Verification Algorithm](protocols/vap/v3.5/specification.md#4-vap-receipt-verification-algorithm).
 *   **Conformance:** See the [Conformance Tests](protocols/vap/v3.5/conformance/) to validate implementations.
-*   **Enterprise Quickstart:** Follow the [Getting Started Guide](enterprise/getting-started.md).
-*   **API Reference:** Review the [API Reference](enterprise/api-reference.md).
+*   **Enterprise Quickstart:** Follow the [Getting Started Guide](technical/getting-started.md).
+*   **API Reference:** Review the [API Reference](technical/api-reference.md).
 
 ## 📚 Repository Structure
 
