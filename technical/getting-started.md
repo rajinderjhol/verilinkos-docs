@@ -31,5 +31,7 @@ def make_ai_decision(query: str) -> dict:
 ```
 
 ## 4. Next Steps
-*   See [Deployment Guide](deployment-guide.md) for enterprise production setup.
 *   Review [API Reference](api-reference.md) for advanced Guardian configuration.
+
+---
+*Note: This is the authoritative technical documentation for VeriLinkOS.*
