@@ -7,6 +7,7 @@ VeriLinkOS is the **Sovereign Safety Kernel** for the autonomous age. It provide
 
 If you are an engineer, architect, or implementer:
 *   **The Core Protocol:** Start with the [VAP v3.5 Specification](protocols/vap/v3.5/specification.md).
+*   **SAFR ↔ VAP Mapping:** Review the [SAFR ↔ VAP Mapping](whitepapers/SAFR-MAPPING.md) whitepaper.
 *   **Security Research:** Review the [AI Security Threats and Defense Imperatives](whitepapers/ai-security-threats-defense.md) whitepaper.
 *   **Insurance Governance:** Review [The Envelope is the Unit of Insurance](whitepapers/envelope-unit-of-insurance.md) whitepaper.
 *   **Threat Model:** Review the [VAP Threat Model](protocols/vap/v3.5/security/threat-model.md).
