@@ -1,14 +1,14 @@
 # VeriLinkOS Documentation
+**AI Safety, Security, and Governance. Trust but Verify.**
 
-**The Control Plane for Autonomous AI Agents**
-
-VeriLinkOS is the sovereign autonomy engine for the agentic web. It provides the trust, identity, governance, and settlement layer that makes autonomous agents safe to operate and transact at enterprise scale.
+VeriLinkOS is the **Sovereign Safety Kernel** for the autonomous age. It provides the fail-closed governance, cryptographic safety, and forensic provenance required to protect your **Digital Titles** and secure your **Digital Infrastructure** at enterprise scale.
 
 ## 🛠 For Technical Implementation
 
 If you are an engineer, architect, or implementer:
 *   **The Core Protocol:** Start with the [VAP v3.5 Specification](protocols/vap/v3.5/specification.md).
 *   **Security Research:** Review the [AI Security Threats and Defense Imperatives](whitepapers/ai-security-threats-defense.md) whitepaper.
+*   **Insurance Governance:** Review [The Envelope is the Unit of Insurance](whitepapers/envelope-unit-of-insurance.md) whitepaper.
 *   **Threat Model:** Review the [VAP Threat Model](protocols/vap/v3.5/security/threat-model.md).
 *   **Forensics:** See the [Cryptographic Forensics for Autonomous AI](whitepapers/cryptographic-forensics.md) case study.
 *   **Conformance:** See the [Conformance Tests](protocols/vap/v3.5/conformance/) to validate implementations.
@@ -34,12 +34,12 @@ If you are an engineer, architect, or implementer:
 
 ## 🚀 Key Capabilities
 
-- **Guardian Enforcement**: Fail-closed runtime policy enforcement.
-- **Verifiable Action Protocol (VAP)**: Cryptographic evidence and non-repudiation.
-- **Trust Passports**: Portable W3C DID identities for AI agents.
-- **Agentic Commerce**: x402 micropayments and trust-weighted settlement.
-- **Gap Governance**: Cryptographic bridging of the Permit-to-Settlement gap.
-- **Action Chain**: End-to-end provenance for AI-generated assets.
+- **Safety Guardian (The Kernel)**: Fail-closed runtime policy enforcement and digital infrastructure security.
+- **VAP Security Receipts**: Cryptographic evidence, safety attestations, and non-repudiation.
+- **Governed Identity Passports**: Portable W3C DID identities for high-stakes AI workforces.
+- **Secure Agentic Commerce**: x402 secure micropayments and trust-weighted settlement.
+- **Gap Governance**: Cryptographic bridging of the Permit-to-Settlement gap with full provenance.
+- **Annex G Forensics**: End-to-end provenance for Digital Titles and Infrastructure protection.
 
 ## 🛠 Self-Service Resources
 
