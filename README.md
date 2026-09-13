@@ -12,6 +12,7 @@ If you are an engineer, architect, or implementer:
 *   **Insurance Governance:** Review [The Envelope is the Unit of Insurance](whitepapers/envelope-unit-of-insurance.md) whitepaper.
 *   **Threat Model:** Review the [VAP Threat Model](protocols/vap/v3.5/security/threat-model.md).
 *   **Forensics:** See the [Cryptographic Forensics for Autonomous AI](whitepapers/cryptographic-forensics.md) case study.
+*   **Action Attribution:** Review the [Verifiable AI Action Records](whitepapers/verifiable-ai-action-records.md) whitepaper.
 *   **Conformance:** See the [Conformance Tests](protocols/vap/v3.5/conformance/) to validate implementations.
 *   **Enterprise Quickstart:** Follow the [Getting Started Guide](technical/getting-started.md).
 
