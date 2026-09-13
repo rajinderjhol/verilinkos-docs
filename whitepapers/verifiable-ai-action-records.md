@@ -624,4 +624,4 @@ That is the primitive. The architecture, the key governance, and the deployment 
 
 ---
 
-*The demonstration and verifier are reproducible. The evidence in §4 is actual output, not illustration.*', file_path:
+*The demonstration and verifier are reproducible. The evidence in §4 is actual output, not illustration.*
