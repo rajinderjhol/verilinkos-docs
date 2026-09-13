@@ -280,17 +280,15 @@ Verdict:      UNTRUSTED
 
 The receipt is generated at a defined point in the decision path — the **point of truth**.
 
-```
 ```mermaid
-flowchart TD
-    A["AI Agent<br/>proposes an action"] --> B["Policy Engine<br/>evaluates against bank rules<br/>→ allow / block / defer"]
-    B --> C["Authority Chain<br/>resolves delegation<br/>→ capabilities, limits, expiry"]
-    C --> D["★ RECEIPT GENERATED<br/>(point of truth)<br/>produced from the enforcement event<br/>signed with bank's authority key"]
-    D --> E["Immutable Retention<br/>WORM / audit store"]
-    E --> F["Independent Verification<br/>auditor runs offline<br/>→ VALID / INVALID / UNTRUSTED / INCOMPLETE"]
+graph TD
+    A[AI Agent proposes an action] --> B[Policy Engine evaluates against bank rules]
+    B --> C[Authority Chain resolves delegation]
+    C --> D[★ RECEIPT GENERATED - point of truth]
+    D --> E[Immutable Retention]
+    E --> F[Independent Verification]
 
-    style D fill:#fff3cd,stroke:#856404,stroke-width:2px
-```
+    style D fill:#fff3cd,stroke:#856404
 ```
 
 ### 5.2 What Each Assertion Proves — and Does Not Prove
@@ -304,26 +302,13 @@ flowchart TD
 | Merkle root matches | The record belongs to the claimed tree | That the tree contains all relevant events |
 
 ```mermaid
-flowchart TD
-    subgraph L1["Layer 1 — Cryptographic Fact"]
-        A1["Is this exact record intact,<br/>and signed by this key?"]
-    end
-    subgraph L2["Layer 2 — Institutional Trust"]
-        A2["Does this key represent an authority<br/>the verifier trusts?"]
-    end
-    subgraph L3["Layer 3 — Operational Truth"]
-        A3["Does the signed record correspond<br/>to a real enforcement event?"]
-    end
+graph TD
+    L1[Layer 1 - Cryptographic Fact]
+    L2[Layer 2 - Institutional Trust]
+    L3[Layer 3 - Operational Truth]
 
-    L1 --> L2 --> L3
-
-    C1["Established by:<br/>signature, hashes"] -.-> L1
-    C2["Established by:<br/>registry, root key"] -.-> L2
-    C3["Established by:<br/>point of truth, key governance<br/>NOT cryptography"] -.-> L3
-
-    style L1 fill:#d4edda,stroke:#155724
-    style L2 fill:#d1ecf1,stroke:#0c5460
-    style L3 fill:#f8d7da,stroke:#721c24
+    L1 --> L2
+    L2 --> L3
 ```
 
 *An administrator with both the signing key and the ability to invoke the enforcement path could fabricate a receipt. This is a key-governance problem, mitigated by separation of duties and audit of signing operations.*
