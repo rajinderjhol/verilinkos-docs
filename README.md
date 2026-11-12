@@ -13,7 +13,7 @@ If you are an engineer, architect, or implementer:
 *   **Threat Model:** Review the [VAP Threat Model](protocols/vap/v3.5/security/threat-model.md).
 *   **Forensics:** See the [Cryptographic Forensics for Autonomous AI](whitepapers/cryptographic-forensics.md) case study.
 *   **Action Attribution:** Review the [Verifiable AI Action Records](whitepapers/verifiable-ai-action-records.md) whitepaper.
-*   **Conformance:** See the [Conformance Tests](protocols/vap/v3.5/conformance/) to validate implementations.
+*   **Insurance Standard:** Review the [ARAS v1.0 specification](standards/ARAS-v1.0/ARAS-v1.0.md) — the Agentic Risk Assessment Standard for liability underwriting.
 *   **Enterprise Quickstart:** Follow the [Getting Started Guide](technical/getting-started.md).
 
 ## 📢 Latest Insights
@@ -27,6 +27,7 @@ If you are an engineer, architect, or implementer:
 - `academic/`: Formal papers and theoretical foundations.
 - `whitepapers/`: Deep dives into specific capabilities and market vision.
 - `protocols/`: Technical protocol specifications (VAP, etc.)
+- `standards/`: Formal standards for external adoption and conformance (ARAS, etc.).
 - `technical/`: Deployment, integration, and quickstart guides.
 - `enterprise/`: Architectural overviews and enterprise implementation.
 - `investor/`: Executive summaries and strategic roadmap.
@@ -35,6 +36,8 @@ If you are an engineer, architect, or implementer:
 - `templates/`: Documentation and report templates.
 
 ## 🚀 Key Capabilities
+
+These describe the system architecture. Each is documented in the whitepapers listed above and implemented in the companion VeriLinkOS code repository.
 
 - **Safety Guardian (The Kernel)**: Fail-closed runtime policy enforcement and digital infrastructure security.
 - **VAP Security Receipts**: Cryptographic evidence, safety attestations, and non-repudiation.
