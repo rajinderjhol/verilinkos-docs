@@ -73,7 +73,7 @@ Where this standard references a covariate defined in one of the above, the defi
 
 **3.5 Evidence Quality.** The degree to which a receipt provides independently verifiable proof of authorization and enforcement, as opposed to operator-attested assertions.
 
-**3.6 Data Quality Index (DQI).** A composite score (0.0–1.0) measuring the completeness, coherence, and adequacy of the evidence supporting an agent action. Component definitions in §5.2.
+**3.6 Data Quality Index (DQI).** A composite score (0.0–1.0) measuring the completeness, coherence, and adequacy of the evidence supporting an agent action. Higher scores indicate higher-quality evidence; the ARAS normalization at Appendix A inverts this to a risk-direction score. Component definitions in §5.2.1.
 
 **3.7 Block Rate.** The fraction of attempted actions blocked by the execution gate over a defined measurement period. A behavioral indicator of constraint pressure.
 
@@ -139,14 +139,36 @@ This section defines the covariates that must be captured for each agent under a
 
 | ID | Covariate | Source | Measurement Period |
 |---|---|---|---|
-| E1 | DQI composite score | Receipt `commerce_dqi.score` | Per action |
-| E2 | DQI component scores (7) | Receipt `commerce_dqi.components` | Per action |
+| E1 | DQI composite score | Receipt `vap_dqi.score` | Per action |
+| E2 | DQI component scores (7) | Receipt `vap_dqi.components` | Per action |
 | E3 | Receipt completeness (% required fields present) | Receipt validation | Per action |
 | E4 | Signature validity (dual vs single) | Receipt `proof` | Per action |
 | E5 | Offline verification result | Verifier output | Per action |
 | E6 | Pre-mandate commitment match | Receipt `pre_mandate_commitment.match` | Per action |
 | E7 | Evidence provenance completeness | Receipt `evidence_provenance` | Per action |
 | E8 | Coverage (fraction of actions with conforming receipts) | Aggregate | Per measurement period |
+
+### 5.2.1 DQI component definitions
+
+The Data Quality Index (§3.6) is composed of seven components, each scored on a 0.0–1.0 scale where **higher values indicate higher-quality evidence**. The composite DQI score is the unweighted arithmetic mean of the seven component scores. Component weights may be introduced in a future revision once loss experience justifies them.
+
+| ID | Component | Definition | Computation source |
+|---|---|---|---|
+| DQI-1 | Completeness | Fraction of required mandate constraints present in the delegation token | `DelegationToken` constraint fields vs. required constraint schema |
+| DQI-2 | Constraint Coherence | Fraction of mandate constraints that are mutually consistent (no contradictions) | `constraints_applied` cross-consistency check |
+| DQI-3 | Human Approval Rate | Fraction of tier-2+ actions with a verified human approver | `human_approver_id` presence over measurement period |
+| DQI-4 | Rationale Depth | Specificity of the block reason, on a 0.0–1.0 rubric (0 = "failed"; 1 = specific rule identified + counterfactual stated) | `rationale` and `block_reason` text |
+| DQI-5 | Temporal Integrity | Whether execution occurred within the mandate's validity window (1.0 = within; 0.0 = outside) | `execution_deadline` vs. `context.timestamp` |
+| DQI-6 | Knowledge Adequacy | Specificity of the mandate itself, on a 0.0–1.0 rubric (0 = "buy a car"; 1 = "buy a red Honda Civic under €20k from Supplier A") | `DelegationToken` constraint detail |
+| DQI-7 | Pre-Commitment Integrity | Whether the human pre-committed intent matches the executed action (1.0 = match; 0.0 = mismatch or absent) | `pre_mandate_commitment` hash vs. action hash |
+
+**Direction.** All component scores are quality-direction (higher = better). The Evidence Risk normalization at Appendix A (E1, E2) inverts this: `1.0 - DQI_score` yields a risk-direction score, consistent with the other Evidence Risk covariates where higher = riskier.
+
+**Composite.** `DQI_score = (Σ component_scores) / 7`. The composite is quality-direction. Implementations MUST report both the composite (`vap_dqi.score`) and the seven components (`vap_dqi.components`).
+
+**Tier thresholds.** Minimum DQI for tier classification (§7.1): Tier 3 requires DQI ≥ 0.70; Tier 4 requires DQI ≥ 0.85. These thresholds are initial estimates and may be revised once actuarial data is available. A DQI exceeding the tier minimum by 0.05 or more supports tier de-escalation under §7.3.
+
+**Worked examples.** The DQI values in Appendix B (`E1 DQI: 0.92`, `E1 DQI: 0.65`, `vap_dqi.score: 0.88`) are quality-direction composites. Implementations producing these values should document the seven component scores that yield them.
 
 ### 5.3 Behavioral Risk covariates
 
@@ -250,6 +272,8 @@ The composite score ranges from 0.0 (minimal risk) to 1.0 (maximum risk). Interp
 | 0.60–0.80 | Elevated: significant gaps, enhanced review required |
 | 0.80–1.00 | Critical: unacceptable risk posture without remediation |
 
+Band boundaries are `[lower, upper)`: a score of exactly 0.20 falls in the `0.20–0.40` band, not the `0.00–0.20` band.
+
 ---
 
 ## 7. Risk Tier Classification
@@ -262,9 +286,11 @@ The composite score maps to one of five risk tiers. Each tier carries mandatory 
 |---|---|---|---|---|---|
 | **1** | 0.00–0.20 | Minimal | VAP receipts (dual-signed, offline-verifiable) | Execution gate + HITL for Tier 3+ actions | Standard limits |
 | **2** | 0.20–0.40 | Low | Tier 1 + pre-mandate commitment | Tier 1 + quarterly review | Standard limits |
-| **3** | 0.40–0.60 | Moderate | Tier 2 + DQI ≥ 0.70 + coverage ≥ 95% | Tier 2 + mandatory HITL for Tier 2+ actions | Enhanced limits |
+| **3** | 0.40–0.60 | Moderate | Tier 2 + DQI ≥ 0.70 + coverage ≥ 99% | Tier 2 + mandatory HITL for Tier 2+ actions | Enhanced limits |
 | **4** | 0.60–0.80 | Elevated | Tier 3 + DQI ≥ 0.85 + coverage = 100% + external audit | Tier 3 + board-level sign-off | Restricted limits |
 | **5** | 0.80–1.00 | Critical | Uninsurable without remediation | Uninsurable without remediation | No authority |
+
+Tier boundaries follow the same `[lower, upper)` convention as §6.6.
 
 ### 7.2 Tier escalation triggers
 
@@ -305,7 +331,7 @@ Every agent action must produce a receipt meeting VAP Receipt v3.0. For ARAS con
 | `mandate` block with human signature | Required | Required | Required | Required |
 | `dual_signature` proof (human + operator) | Required | Required | Required | Required |
 | `pre_mandate_commitment` | — | Required | Required | Required |
-| `commerce_dqi` block | — | — | Required | Required |
+| `vap_dqi` block | — | — | Required | Required |
 | `constraints_evaluated` (non-empty) | Required | Required | Required | Required |
 | `offline_verification` result | Recommended | Required | Required | Required |
 | `evidence_provenance` completeness | — | — | Required | Required |
@@ -321,7 +347,7 @@ Coverage is the fraction of agent actions for which a conforming receipt exists.
 | Tier 3 | 99% |
 | Tier 4 | 100% |
 
-Coverage below 90% automatically escalates to Tier 4 (see §7.2).
+Coverage below 90% automatically escalates one tier (see §7.2).
 
 ### 8.3 Audit requirements
 
@@ -490,8 +516,8 @@ ARAS is designed to be compatible with:
 | A3 Category breadth | 0.10 | `min(count / 10, 1.0)` |
 | A4 Mandate duration | 0.15 | `min(days / 365, 1.0)` |
 | A5 Delegation depth | 0.15 | `min((depth - 1) / 3, 1.0)` |
-| A6 Revocation capability | 0.10 | `1.0` if false, `0.0` if true |
-| A7 HITL threshold | 0.10 | `1.0 - (threshold / 5)` (higher tier = lower risk) |
+| A6 Revocation capability | 0.10 | `1.0` if capability absent, `0.0` if present |
+| A7 HITL threshold | 0.10 | `min(threshold / 5, 1.0)` (higher threshold = higher risk) |
 | A8 Lethal Trifecta exposure | 0.10 | `1.0` if true, `0.0` if false |
 
 ### Table A.2 — Evidence Risk weights and normalization
@@ -611,7 +637,7 @@ ARAS is designed to be compatible with:
 - `execution_status`: `blocked`
 - `block_reason`: `spend_limit_exceeded`
 - `constraints_applied`: `[{rule_id: "spend_limit", actual_value: 350, expected_value: 200, compliant: false}]`
-- `commerce_dqi.score`: 0.88
+- `vap_dqi.score`: 0.88
 
 **ARAS scoring:**
 - This action contributes to B1 (block rate) as one blocked action.
@@ -650,6 +676,24 @@ ARAS assumes an OWASP-compliant security posture. The two standards are compleme
 
 ---
 
+### C.3 DQI components to ACAP
+
+The seven DQI components (§5.2.1) each measure evidence artifacts that ACAP governs. The mapping below makes the DQI's ACAP coverage auditable.
+
+| DQI component | Evidence artifact | ACAP section |
+|---|---|---|
+| DQI-1 Completeness | `DelegationToken` constraints | §C (Authority and consequential events) |
+| DQI-2 Constraint Coherence | `constraints_applied` | §D (Controls and enforcement) |
+| DQI-3 Human Approval Rate | `human_approver_id` history | §D + §F (Monitoring) |
+| DQI-4 Rationale Depth | `rationale` / `block_reason` | §D |
+| DQI-5 Temporal Integrity | `execution_deadline` / `context.timestamp` | §C |
+| DQI-6 Knowledge Adequacy | `DelegationToken` constraint detail | §C |
+| DQI-7 Pre-Commitment Integrity | `pre_mandate_commitment` | §C + §F |
+
+DQI-1, DQI-5, and DQI-6 assess the quality of the *authorization* (ACAP §C). DQI-2 and DQI-4 assess the quality of the *enforcement record* (ACAP §D). DQI-3 and DQI-7 assess *monitoring and re-authorization* evidence (ACAP §F). A deployment scoring high on all seven has evidence that ACAP Sections C, D, and F are substantively, not just formally, satisfied.
+
+---
+
 ## Appendix D: Glossary
 
 **Agent.** An autonomous software system that acts on behalf of a human or organization.
@@ -660,7 +704,7 @@ ARAS assumes an OWASP-compliant security posture. The two standards are compleme
 
 **Coverage.** The fraction of agent actions for which a conforming receipt exists.
 
-**DQI.** Data Quality Index; composite measure of evidence adequacy.
+**DQI.** Data Quality Index; composite measure of evidence adequacy, composed of seven components (DQI-1 through DQI-7, §5.2.1). Higher scores indicate higher-quality evidence; the ARAS normalization in Appendix A inverts this to risk-direction.
 
 **Execution Gate.** Runtime enforcement point that checks actions against mandates.
 
