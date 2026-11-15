@@ -140,7 +140,7 @@ The rest of this paper is a specification of what closing that gap requires, and
 
 ## 3. The Three Questions
 
-In conversations with underwriters at four carriers and three MGAs over the past six months, the questions collapse to three. They are asked in the following order, and they are asked whether or not the meeting was scheduled to discuss AI.
+Across the underwriting literature, the standards documents, and the consulting reports cited in the Acknowledgments, the questions underwriters ask about agentic risk collapse to three. They appear in the following order, and they appear whether or not the underwriting conversation began as one about AI.
 
 ### Question 1 — Proof of authority
 
@@ -1097,9 +1097,18 @@ The evidence layer is not a moat. It is an **invitation**. The enterprises, carr
 
 ## Acknowledgments
 
-The author thanks the underwriters at four carriers and three MGAs who reviewed early drafts and provided the specific form of the three questions in Section 3. The author thanks the legal reviewers who clarified the distinction between testimony and evidence in the current liability wave. The author thanks the engineering team at VeriLinkOS for the implementation that produced the evidence in Section 8, and the security researchers who reviewed the receipt format and conformance test suite. Any errors or omissions are the author's own.
+This paper is the product of reading, synthesis, and engineering, not of review relationships. Its arguments draw on:
 
----
+- **Public regulatory sources** — the EU AI Act (especially Articles 12, 14, 26, 50, 71, and 73), the UK Competition and Markets Authority's March 2026 ruling, the Ninth Circuit's August 2026 decision in *Amazon v. Perplexity*, and the 42-state Attorneys General coalition statements.
+- **Public market research** — McKinsey's *State of AI Trust 2026*, Deloitte's *State of AI 2026*, Deloitte Legal's June 2026 report on legal accountability, Gartner's 2026 predictions, PwC's AI-CAL framework, and Forrester's 2026 threat landscape.
+- **Public standards** — NIST's November 2026 design tenets for AI agent identity and authorization, ISO/IEC 42001 (especially Annex A.6.2.8), the WEF April 2026 board playbook, the OECD AI Policy Observatory, and Brookings' October 2026 analysis.
+- **Public carrier publications** — the Armilla, Testudo, Munich Re, Mount, Klaimee, and Harbor product and pricing disclosures on file in 2026.
+- **The published working papers** cited throughout — including the *AgencyLiability.eu* working paper on the underwriting gap, *The Inter-Agent Void*, and the various Zenodo deposits referenced in Section 7.
+
+Where the paper states that a question is "asked by underwriters," it is reporting the *form* of the questions that appear in the public underwriting literature and in the standards and consulting reports cited above — not a claim that any specific carrier reviewed a draft. The three-question structure in Section 3 is my synthesis of that literature, and any errors in that synthesis are my own.
+
+The engineering work that produced the anchoring evidence documented in Section 8 and in the companion `ANCHORING_EVIDENCE.md` — the receipt lifecycle, the confirmed and DB-persisted anchor, the three-state taxonomy, the offline verifier — is my own, and I am responsible for it. Any errors or omissions in this paper are also my own.
+
 
 ## About this paper
 
