@@ -266,26 +266,26 @@ The fourth gate is the gate that turns the enterprise from a **deployer with log
 
 ```mermaid
 flowchart TB
-    subgraph G1["1. Verification — can you prove what it DID?"]
-        V[Signed, replayable receipt<br/>SCITT / RFC 9162 / COSE_Sign1]
+    subgraph G1["Gate 1 Verification"]
+        V["Signed replayable receipt<br/>SCITT RFC 9162 COSE_Sign1"]
     end
-    subgraph G2["2. Governance — who was on WATCH?"]
-        Go[Named accountable human<br/>EU AI Act Art 26 / ISO 42001]
+    subgraph G2["Gate 2 Governance"]
+        Go["Named accountable human<br/>EU AI Act Art 26 ISO 42001"]
     end
-    subgraph G3["3. Standards — against what YARDSTICK?"]
-        S[ISO 42001 mapping<br/>NIST AI RMF / ARAS covariates]
+    subgraph G3["Gate 3 Standards"]
+        S["ISO 42001 mapping<br/>NIST AI RMF ARAS covariates"]
     end
-    subgraph G4["4. Admissibility — what did it SEE?"]
-        A[Visual + semantic state witness<br/>FRE 902(14) / EU AI Act Art 12]
+    subgraph G4["Gate 4 Admissibility"]
+        A["Visual and semantic state witness<br/>FRE 902-14 EU AI Act Art 12"]
     end
-
     G1 --> G2 --> G3 --> G4
-
     style G4 fill:#ffe6e6,stroke:#c00,stroke-width:3px
     style G1 fill:#e6f3ff
     style G2 fill:#e6ffe6
     style G3 fill:#fffbe6
-The four gates are cumulative. Verification without governance is incomplete; governance without standards is incomparable; standards without admissibility is undefendable. The fourth gate (admissibility) is the one currently missing from the market and the one the current liability wave is most concerned with.
+```
+
+*The four gates are cumulative. Verification without governance is incomplete; governance without standards is incomparable; standards without admissibility is undefendable. The fourth gate (admissibility) is the one currently missing from the market and the one the current liability wave is most concerned with.
 
 | Gate | Question | Artifact | Failure mode if missing |
 |---|---|---|---|
@@ -597,47 +597,49 @@ The four gates and the evidence trinity are specifications. This section is a de
 sequenceDiagram
     autonumber
     participant Agent
-    participant Guardian as Authorization Layer
+    participant Guardian as Auth Layer
     participant Build as Receipt Builder
-    participant Anchor as Anchoring Service
+    participant Anchor as Anchoring
     participant Chain as Polygon Amoy
-    participant DB as Postgres vap_receipts
+    participant DB as Postgres
 
     Agent->>Guardian: propose action
-    Guardian->>Guardian: evaluate action against policy
-    Note right of Guardian: verdict ∈ {allow, block, warn, defer}
+    Guardian->>Guardian: evaluate against policy
+    Note right of Guardian: verdict is allow block warn or defer
 
-    Note over Guardian,Build: Pass 1 — compute and sign
-    Guardian->>Build: build(action_type, verdict, policy_id)
-    Build->>Build: canonical serialize (RFC 8785)
+    Note over Guardian,Build: Pass 1 compute and sign
+    Guardian->>Build: build receipt
+    Build->>Build: canonical serialize RFC 8785
     Build->>Build: SHA-256 leaf hash
-    Build->>Build: Ed25519 sign (+ optional ML-DSA-87)
-    Build-->>Guardian: VAPReceipt (merkle_root, signature)
+    Build->>Build: Ed25519 sign with optional ML-DSA-87
+    Build-->>Guardian: VAPReceipt
 
-    Note over Guardian,Chain: Pass 2 — optional anchor (policy-dependent)
-    Guardian->>Anchor: anchor_or_batch(merkle_root)
-    alt immediate-anchor policy
-        Anchor->>Chain: eth_sendRawTransaction
-        Chain-->>Anchor: tx_hash
-        Anchor->>Chain: wait_for_transaction_receipt
-        Chain-->>Anchor: status=0x1, blockNumber
+    Note over Guardian,Chain: Pass 2 optional anchor
+    Guardian->>Anchor: anchor or batch
+    alt immediate anchor policy
+        Anchor->>Chain: send raw transaction
+        Chain-->>Anchor: tx hash
+        Anchor->>Chain: wait for receipt
+        Chain-->>Anchor: status and block
     else batch policy
         Anchor->>Anchor: queue for hourly batch
     else skip policy
-        Anchor->>Anchor: no anchor (receipt still valid)
+        Anchor->>Anchor: no anchor issued
     end
-    Anchor-->>Guardian: VAPAnchor or None
+    Anchor-->>Guardian: VAPAnchor
 
-    Note over Guardian,Build: Pass 3 — bind anchor
-    Guardian->>Build: rebuild(merkle_root_override, anchors_override)
+    Note over Guardian,Build: Pass 3 bind anchor
+    Guardian->>Build: rebuild with anchor
     Build-->>Guardian: final VAPReceipt
 
-    Guardian->>DB: INSERT vap_receipts
+    Guardian->>DB: insert vap_receipts
     DB-->>Guardian: stored
 
-    Guardian-->>Agent: ALLOW with receipt_id
+    Guardian-->>Agent: ALLOW
     Agent->>Agent: execute action
-The eight steps from action proposal to persisted receipt. Passes 1, 2, and 3 are the three build_receipt invocations discussed in Section 8.1. The anchor is optional: if the policy returns batch or skip, the receipt is still valid and still verifiable.
+```
+
+*The eight steps from action proposal to persisted receipt. Passes 1, 2, and 3 are the three build_receipt invocations discussed in Section 8.1. The anchor is optional: if the policy returns batch or skip, the receipt is still valid and still verifiable.
 
 At the moment the agent acts, the following occurs:
 
