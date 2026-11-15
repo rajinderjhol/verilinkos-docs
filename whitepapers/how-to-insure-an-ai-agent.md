@@ -604,7 +604,8 @@ sequenceDiagram
     participant DB as Postgres vap_receipts
 
     Agent->>Guardian: propose action
-    Guardian->>Guardian: evaluate against policy<br/>verdict: allow/block/warn/defer
+    Guardian->>Guardian: evaluate action against policy
+    Note right of Guardian: verdict ∈ {allow, block, warn, defer}
 
     Note over Guardian,Build: Pass 1 — compute and sign
     Guardian->>Build: build(action_type, verdict, policy_id)
@@ -634,7 +635,7 @@ sequenceDiagram
     Guardian->>DB: INSERT vap_receipts
     DB-->>Guardian: stored
 
-    Guardian-->>Agent: ALLOW + receipt_id
+    Guardian-->>Agent: ALLOW with receipt_id
     Agent->>Agent: execute action
 The eight steps from action proposal to persisted receipt. Passes 1, 2, and 3 are the three build_receipt invocations discussed in Section 8.1. The anchor is optional: if the policy returns batch or skip, the receipt is still valid and still verifiable.
 
