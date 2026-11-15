@@ -40,7 +40,7 @@ Where the paper does not attach a marker, the default is [SPECIFIED] — the ele
 
 In 2026, liability for autonomous AI agents has concentrated on the deploying enterprise. Insurers are repricing to reflect that concentration. But the evidence required to underwrite — and later defend — that liability does not exist in most enterprises. Standard technology contracts allocate the risk to the customer while giving the customer no contractual right to the vendor's decision logs. Regulators now require record-keeping that internal logs cannot satisfy. Courts have explicitly declined to set a new regime, leaving the deployer to prove facts in a system they do not control.
 
-This paper names the resulting gap as an **evidence problem**, not a legal one. It proposes a four-gate architecture — verification, governance, standards, and **admissibility** — in which the fourth gate is the decisive one for the current liability wave. It argues that the correct atomic unit of agentic risk is not the log, not the transaction, and not the audit trail, but the **signed, portable receipt** — a cryptographic artifact that binds what the agent was authorized to do, what it perceived, what it decided, and what it executed, in a form that any third party can verify offline. It then specifies how that receipt is anchored, how it is measured (ARAS covariates), and how it maps to five commercial workflows (insurance claims, regulatory filing, multi-party disputes, court evidence, attribution). It closes with a conformance path, an honest accounting of what is and is not yet claimed, and a call to carriers, enterprises, and standards bodies.
+This paper names the resulting gap as an **evidence problem**, not a legal one. It proposes a four-gate architecture — verification, governance, standards, and **proof of perception** (often referred to as the admissibility gate, though the paper is precise about the distinction between the two) — in which the fourth gate is the decisive one for the current liability wave. Three gates are the current industry consensus and are necessary but insufficient: they establish whether the agent was *governed*, not whether the agent was *deceived*. It argues that the correct atomic unit of agentic risk is not the log, not the transaction, and not the audit trail, but the **signed, portable receipt** — a cryptographic artifact that binds what the agent was authorized to do, what it perceived, what it decided, and what it executed, in a form that any third party can verify offline. It then specifies how that receipt is anchored, how it is measured (ARAS covariates), and how it maps to five commercial workflows (insurance claims, regulatory filing, multi-party disputes, court evidence, attribution). It closes with a conformance path, an honest accounting of what is and is not yet claimed, and a call to carriers, enterprises, and standards bodies.
 
 The thesis in one sentence: **the party who is liable is the party who cannot prove — and the party who can prove is now the party that gets insured.**
 
@@ -219,7 +219,7 @@ An enterprise that can answer attribution but not integrity has logs. An enterpr
 
 **Proof of authority tells the regulator whether the agent should have acted; proof of perception tells the plaintiff whether the agent was deceived; proof of action tells the insurer whether the claim is real.**
 
-The enterprise that can answer all three becomes insurable at a price the market will pay. The enterprise that cannot becomes a liability the market prices in and then excludes.
+The enterprise that can answer all three becomes a materially better underwriting prospect — able to be evaluated on evidence rather than attestation. The enterprise that cannot becomes a risk the market prices against and, increasingly, excludes. Neither outcome is a guarantee; both are structural advantages that the enterprise with evidence holds over the enterprise without it.
 
 ---
 
@@ -265,7 +265,7 @@ We call it the **admissibility gate**, and it is the gate that closes dark-patte
 
 **What most enterprises have:** a self-assessment against a checklist. This is not conformance. It is aspiration.
 
-### 4.4 Gate 4 — Admissibility
+### 4.4 Gate 4 — Proof of Perception (Evidentiary Integrity)
 
 > *"Can you prove what the agent **saw**?"*
 
@@ -276,6 +276,8 @@ We call it the **admissibility gate**, and it is the gate that closes dark-patte
 **What it does not prove:** whether the interface was *fair*. Admissibility answers the fact of perception; fairness is a separate question, often answered by the substantive dispute.
 
 **What most enterprises have:** nothing. This is the gate that is currently missing from the market, and it is the gate that the current liability wave is most concerned with.
+
+**On the word "admissibility."** This gate is often referred to as the "admissibility gate," but that is imprecise. What the gate produces is a *visual-state witness* and a set of cryptographic integrity properties: a hash of the rendered interface, a hash of the DOM snapshot, viewport geometry, timestamp, all bound into the signed receipt. Whether that evidence is *admissible in a specific court* — whether it satisfies Federal Rule of Evidence 902(14) in a US federal proceeding, whether it meets the reliability standard of a particular state, whether it is admitted under the equivalent of the EU's eIDAS framework, whether an expert witness establishes the reliability of the capture process — is a downstream question answered by the court, not by the gate. The gate's contribution is to produce the artifact the admissibility argument is built on. The argument itself is the court's. This distinction is revisited in §9.3.
 
 ### 4.5 Why the fourth gate is decisive
 
@@ -325,9 +327,9 @@ flowchart TB
 | **1. Verification** | Can you prove what it did? | Signed, replayable receipt | Log testimony, not evidence |
 | **2. Governance** | Who was on watch? | Named accountable human, cryptographically bound | "The AI Risk Committee is responsible" |
 | **3. Standards** | Against what yardstick? | ISO 42001 mapping, ARAS covariates | Self-assessment vs. self-assessment |
-| **4. Admissibility** | Can you prove what it **saw**? | Visual + semantic state at action time | Defenseless against dark-pattern disputes |
+| **4. Perception** | Can you prove what it **saw**? | Visual + semantic state witness at action time | Defenseless against dark-pattern disputes |
 
-The four gates are cumulative: verification without governance is incomplete; governance without standards is incomparable; standards without admissibility is undefendable. Only the enterprise that closes all four is **insurable, defensible, and boundable** — the three words in the current positioning that this paper argues are the three words that matter.
+The four gates are cumulative: verification without governance is incomplete; governance without standards is incomparable; standards without perception are undefendable. Only the enterprise that closes all four is in a position to be **underwritten, defended, and bounded** — with the caveat, developed in §9, that evidence readiness is not the same as insurance availability.
 
 ---
 
@@ -538,7 +540,7 @@ The enterprise that has not built the evidence layer must choose: it can buy one
 
 ## 7. The Landscape
 
-In 2026, the agentic-risk category has formed, but it is fragmented. Four categories of players are publishing on the same problem, each from a different angle, and none has published the unified evidence-layer specification that the workflows in Section 6 require.
+In 2026, the agentic-risk category has formed, but it is fragmented. Four categories of players are publishing on the same problem, each from a different angle, and none has published the unified evidence-layer specification that the workflows in Section 6 require. **A note on sources.** The claims in this section are based on published materials available to the author as of November 2026, including product documentation, public standards drafts, published consulting reports, carrier announcements, and peer-reviewed papers. Where a claim refers to a specific organization, the specific source is cited in the accompanying table. Where a claim is a synthesis of multiple sources — as with the statement that the identity plane does not produce the format — the synthesis is the author's, and errors in that synthesis are the author's. Corrections from any organization named in this section are welcome and will be incorporated.
 
 Understanding what each category has claimed — and what each has left open — is prerequisite to understanding where the evidence layer fits.
 
@@ -613,6 +615,14 @@ Two things have happened simultaneously in 2026:
 2. No category has published the **format** — the concrete, portable, offline-verifiable artifact that satisfies the requirement, feeds the framework, prices the insurance, and conforms to the standard.
 
 This is the gap. It is not a gap in any individual category's work. It is the gap **between** the categories. The identity plane does not produce the format. The framework does not produce the artifact. The pricing does not produce the data it prices. The standard does not produce the conformance test.
+
+**A precise statement of the claim.** The stronger reading — that *no competitor has published relevant evidence capabilities* — would be wrong and would undermine the paper's credibility. The accurate claim is narrower:
+
+- **No publicly documented implementation** meeting the specific VAP receipt requirements set out in Appendix B — a signed, portable, offline-verifiable artifact with the three elements of the evidence trinity — is observable in the published materials of the categories above as of November 2026.
+- **No publicly documented interoperable format** carrying all three evidence-trinity elements together (proof of authority, proof of perception, proof of action) in a single artifact is observable.
+- **No established industry-wide adoption** of any such format has occurred. Standards bodies have named the requirement without specifying the format; carriers have named the pricing mechanism without standardizing the evidence; identity platforms have produced the controls without the portable artifact.
+
+Readers are invited to disprove any of these three specific claims by pointing to a public implementation, format, or adoption announcement that the author has missed. Claims stated at this precision are falsifiable, which is what the paper's §9 standard requires.
 
 The evidence layer is the category that closes the gap. It is not a product — it is a **specification with conformance tests** that every category above can adopt.
 
@@ -813,6 +823,7 @@ A category-defining paper is credible only to the extent that it is honest about
 ### 9.1 What the evidence does not do
 
 - **Evidence does not eliminate liability.** The party who is liable remains liable. The evidence changes the *proof* of liability, not its *existence*.
+- **Evidence does not make an enterprise "insurable" in the sense of a formal coverage decision.** It makes the enterprise **underwriting-ready**: able to answer the questions an underwriter needs to price and bind. The decision to offer coverage, at what limits, with what exclusions, remains the insurer's. This distinction is used consistently throughout the paper. Where the paper uses the word "insurable," it means "producing the evidence an underwriter requires to consider coverage," not "guaranteed to receive coverage." 
 - **Evidence does not guarantee coverage.** An insurer will bind only on the combination of evidence and appetite. Evidence improves the position; it does not guarantee the outcome.
 - **Evidence does not guarantee a lower premium.** An insurer may price the same risk more or less favorably based on evidence, but premium is a function of many factors, of which evidence is one.
 - **Evidence does not transfer risk.** The deployer remains the deployer. There is no mechanism by which the receipt transfers liability to the vendor, the chain, or the standards body.
@@ -953,7 +964,7 @@ The implementation is approximately 380 lines of code:
 
 ### 10.5 The conformance path in one sentence
 
-**Instrument in 90 days, converse in 180, standardize in 12 months.** The 90-day path produces enough evidence to begin conversations. The 180-day path produces enough conversation to establish the bar. The 12-month path produces enough standard to make the enterprise the reference.
+**Instrument in 90 days, convert in 180, standardize in 12 months.** The 90-day path produces enough evidence to begin conversations. The 180-day path produces enough conversation to establish the bar. The 12-month path produces enough standard to make the enterprise the reference.
 
 ---
 
@@ -1022,6 +1033,8 @@ The window is open. It will not stay open indefinitely.
 
 ## Appendix A — The ARAS Covariates
 
+**[PROPOSED]** — ARAS v1.0 is a proposed measurement methodology. It has not been validated against a book of real claims, and no carrier has yet priced a policy using its covariates. The seven covariates below are extractable from a VAP receipt (this is [IMPLEMENTED]); whether they correlate with loss frequency, loss severity, or claims-handling cost is an empirical question that is addressed by the validation program described below.
+
 The Agentic Risk Assessment Standard (ARAS v1.0) defines seven covariates, each of which is extractable directly from a VAP receipt. The dual-design principle — that the covariate set and the receipt schema are co-designed — is what makes the standard auditable in practice.
 
 | Covariate | Definition | Receipt field |
@@ -1035,6 +1048,14 @@ The Agentic Risk Assessment Standard (ARAS v1.0) defines seven covariates, each 
 | **pre_commitment_integrity** | Whether the pre-commitment authorization matches the executed action | `receipt.decision_authorization` |
 
 ARAS classifies an enterprise into five tiers based on the composite covariate score. Tier 1 is the least evidence-mature; Tier 5 is the most. The scoring methodology and the tier definitions are in the ARAS v1.0 specification.
+
+**Validation program (proposed).** A complete ARAS adoption requires three empirical results that the paper does not yet provide:
+
+1. **Correlation with loss.** Do ARAS covariates explain variance in claims frequency and severity across a portfolio of real agent deployments? This requires a carrier partnership and a longitudinal study — it cannot be produced from the reference implementation alone.
+2. **Correlation with control effectiveness.** Do ARAS covariates distinguish enterprises whose agents fail less often, or whose failures are less costly, from enterprises whose agents fail more often? This is a measurement question the reference implementation can begin to answer with real enterprise deployments.
+3. **Correlation with underwriting decisions.** When an underwriter prices an enterprise using ARAS covariates, does the priced risk diverge from the actual loss experience in a direction that makes the price defensible? This is the actuarial test and requires a carrier willing to pilot.
+
+The paper's claim is that ARAS is *the measurement instrument* such a study needs. The paper does not claim that any of the three results has been obtained. Underwriters who require the first result before adopting ARAS are not being unreasonable; they are being underwriters, and Section 9.3 makes this explicit.
 
 ---
 
