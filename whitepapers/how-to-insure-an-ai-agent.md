@@ -22,6 +22,18 @@
 
 **Audience:** Underwriters, MGAs, brokers, risk officers, CISOs, general counsels, compliance leads, patent counsel, standards bodies, enterprise CFOs
 
+**Status legend — maturity of each claim**
+
+This paper distinguishes three levels of maturity. Every claim about the architecture, the evidence, or the market should be read against this legend.
+
+| Marker | Meaning | What you can rely on |
+|---|---|---|
+| **[IMPLEMENTED]** | Code exists in the reference implementation, has been exercised end-to-end, and produces the evidence cited in Section 8. | You can run it today. |
+| **[SPECIFIED]** | The format, protocol, or architectural element is fully specified, with a conformance test or a reference implementation, but has not been exercised at scale in production. | You can implement it. |
+| **[PROPOSED]** | The element is a design intention or a market hypothesis. No implementation, conformance test, or production evidence yet exists. | You can critique it, fund it, or adopt it early. |
+
+Where the paper does not attach a marker, the default is [SPECIFIED] — the element is part of the architecture the paper argues for, not a claim that it exists in production everywhere. The one exception is the anchoring evidence in Section 8 and in the companion document `ANCHORING_EVIDENCE.md`, which is [IMPLEMENTED] with confirmed on-chain transactions. Section 9 enumerates what the paper does not claim.
+
 ---
 
 ## Abstract
@@ -34,7 +46,28 @@ The thesis in one sentence: **the party who is liable is the party who cannot pr
 
 ---
 
+## How to read this paper
+
+The paper is written for readers with different responsibilities. The sections below are not a substitute for reading the whole argument, but they identify the shortest path for each reader.
+
+| Reader | Shortest path | What you will find |
+|---|---|---|
+| **CEO / Board** | Abstract, §1, §2, §11 | Why liability has concentrated on the deployer, and why evidence is the gap |
+| **CFO / CRO** | §2, §3, §6, §10, §11 | The financial exposure, the five board questions, the conformance path |
+| **Insurance underwriter** | §2, §3, §4, §5, §7, Appendix A | What the evidence is, how it maps to underwriting covariates, and what the market has already claimed |
+| **MGA / broker** | §2, §6, §7, §11 | The five commercial workflows and the readiness of each |
+| **CISO / CTO** | §4, §5, §8, Appendix B | The architecture, the receipt schema, and the offline verification flow |
+| **General counsel** | §1, §2, §3, §4, §8, §9, Appendix D | The liability framing, the evidentiary distinction, and what the paper does **not** claim |
+| **Compliance / AI governance** | §4, §5, §8, §10, Appendix D | The regulatory mapping and the conformance path |
+| **Regulator / standards body** | §4, §5, §8, §9, Appendices A–E | The requirement, the specification, and the honest disclosure of what is and is not claimed |
+| **AI developer / platform engineer** | §5, §8, Appendix B | The receipt format and the implementation |
+| **Investor / strategic partner** | Abstract, §2, §6, §7, §10, §11 | The market, the workflows, and the conformance path |
+
+The paper's longest single argument is §7 (The Landscape), which maps what each category of player has published and what each has left open. The paper's most important section for skeptical readers is §9 (What We Do Not Claim), which establishes the boundaries around what the architecture can actually demonstrate. The paper's most concrete evidence is §8 and the companion `ANCHORING_EVIDENCE.md`.
+
 ## 1. The Scene
+
+The title of this paper promises a method for insuring AI agents. The argument it actually makes is narrower and more useful: the missing infrastructure between AI governance and AI liability is an *evidence layer* — a set of artifacts that make autonomous actions independently verifiable, and therefore insurable. Whether an insurer ultimately binds a policy, an enterprise reduces premium, or a court admits a receipt is a downstream question. The upstream question — the one this paper addresses — is whether the enterprise can produce evidence at all.
 
 Consider a composite incident, constructed from three real filings we have reviewed and one advisory opinion we have read. The details are synthetic; the pattern is not.
 
@@ -427,7 +460,7 @@ An enterprise with only one of the three has a partial defense. An enterprise wi
 
 ## 6. The Five Commercial Workflows
 
-The evidence trinity is not a research curiosity. It maps onto five commercial workflows that already exist in the market. Each workflow uses a different subset of the trinity; each workflow has a different buyer; each workflow is at a different stage of readiness.
+The evidence trinity is not a research curiosity. It maps onto five commercial workflows that already exist in the market. Each workflow uses a different subset of the trinity; each workflow has a different buyer; each workflow is at a different stage of readiness. **[SPECIFIED]** — the workflows are designed against market participants' published requirements, but no carrier or counterparty has yet accepted a receipt under any of them. The readiness figures in each subsection are estimates of engineering and commercial effort, not of adoption.
 
 Full detail is in `COMMERCIAL_WORKFLOWS.md`; the summary here positions the workflows within the paper's argument.
 
@@ -587,7 +620,7 @@ The evidence layer is the category that closes the gap. It is not a product — 
 
 ## 8. What Good Evidence Looks Like in Production
 
-The four gates and the evidence trinity are specifications. This section is a description of what those specifications produce when they run.
+The four gates and the evidence trinity are specifications. This section is a description of what those specifications produce when they run. **[IMPLEMENTED]** — every step below corresponds to code in the reference implementation, and the anchor evidence cited in Section 8 and in `ANCHORING_EVIDENCE.md` is confirmed on-chain.
 
 ### 8.1 The moment of action
 
@@ -798,6 +831,12 @@ A category-defining paper is credible only to the extent that it is honest about
 - **The paper does not claim that the perception witness is complete.** The perception witness captures what the agent's interface displayed. It does not capture the agent's internal model state, the model's training data, or the model's weights. These are separate questions, and the paper makes no claim about them.
 - **The paper does not claim that the cryptographic primitives are novel.** Ed25519 is a 2015 standard. Merkle trees date to 1979. Post-quantum signatures date to 2016. The novelty of this paper is in the **format and the composition**, not in the primitives.
 
+- **The paper does not claim that cryptographic authenticity equals evidentiary admissibility.** These are different properties. A cryptographically valid receipt proves that a specific record was signed by a specific key at a specific time and has not been altered since. Whether that record is *admissible* in a court — whether the capture mechanism is reliable, whether chain of custody is established, whether the expert testimony satisfies the jurisdiction's reliability standard — is a separate question answered by the court, not by the signature. The paper's claim is narrower: the receipt is *the artifact the admissibility argument is built on*, not the argument itself. See Section 8.4 for what the court packet contains.
+
+- **The paper does not claim that ARAS covariates predict loss.** The covariate set measures the maturity of an enterprise's evidence posture. Whether that measurement *correlates* with loss frequency, loss severity, or claims-handling cost is an empirical question the paper does not answer. The paper's claim is that the covariates are the inputs an underwriter would need to test that hypothesis, not that the hypothesis has been tested. Underwriters who require loss data before adopting ARAS are not being unreasonable; they are being underwriters.
+
+- **The paper does not claim that the receipt format is a standard.** It is a specification. A specification becomes a standard when adopted through a recognized process (CEN/CENELEC, ISO/IEC, NIST) or when multiple independent implementations interoperate under it. Neither has happened. Section 10.3 describes the path by which the paper's specification *could* become a standard; it does not assert that the path has been walked.
+
 ### 9.4 What the paper does not claim about competitors
 
 - **The paper does not claim that any specific competitor is wrong.** It claims that no competitor has published the unified evidence-layer specification that this paper proposes, and that the categories above are complementary to that specification rather than competitive with it.
@@ -816,7 +855,7 @@ Every other claim in this paper is in service of that one. If that one claim is 
 
 ## 10. Conformance Path
 
-The conformance path is a 90-day, 180-day, and 12-month progression from "we have agents" to "we have agents we can insure, defend, and bound."
+The conformance path is a 90-day, 180-day, and 12-month progression from "we have agents" to "we have agents we can insure, defend, and bound." **[SPECIFIED]** — the 90-day path uses implemented code; the 180-day and 12-month paths describe what is technically specified and commercially proposed, not what has been executed at scale.
 
 ### 10.1 The 90-day path — close the evidence gap
 
