@@ -40,7 +40,7 @@ Where the paper does not attach a marker, the default is [SPECIFIED] — the ele
 
 In 2026, liability for autonomous AI agents has concentrated on the deploying enterprise. Insurers are repricing to reflect that concentration. But the evidence required to underwrite — and later defend — that liability does not exist in most enterprises. Standard technology contracts allocate the risk to the customer while giving the customer no contractual right to the vendor's decision logs. Regulators now require record-keeping that internal logs cannot satisfy. Courts have explicitly declined to set a new regime, leaving the deployer to prove facts in a system they do not control.
 
-This paper names the resulting gap as an **evidence problem**, not a legal one. It proposes a four-gate architecture — verification, governance, standards, and **proof of perception** (often referred to as the admissibility gate, though the paper is precise about the distinction between the two) — in which the fourth gate is the decisive one for the current liability wave. Three gates are the current industry consensus and are necessary but insufficient: they establish whether the agent was *governed*, not whether the agent was *deceived*. It argues that the correct atomic unit of agentic risk is not the log, not the transaction, and not the audit trail, but the **signed, portable receipt** — a cryptographic artifact that binds what the agent was authorized to do, what it perceived, what it decided, and what it executed, in a form that any third party can verify offline. It then specifies how that receipt is anchored, how it is measured (ARAS covariates), and how it maps to five commercial workflows (insurance claims, regulatory filing, multi-party disputes, court evidence, attribution). It closes with a conformance path, an honest accounting of what is and is not yet claimed, and a call to carriers, enterprises, and standards bodies.
+This paper names the resulting gap as an **evidence problem**, not a legal one. It proposes a four-gate architecture — verification, governance, standards, and **proof of perception** (often referred to as the admissibility gate, though the paper is precise about the distinction between the two) — in which the fourth gate is the decisive one for the current liability wave. Three gates are the current industry consensus and are necessary but insufficient: they establish whether the agent was *governed*, not whether the agent was *deceived*. It argues that the correct atomic unit of agentic risk is not the log, not the transaction, and not the audit trail, but the **signed, portable receipt** — a cryptographic artifact that binds what the agent was authorized to do, what it perceived, what it decided, and what it executed, in a form that any third party can verify offline. It situates that receipt within a wider *protection gap* — three distinct gaps (capacity, coverage, evidence) across eight sectors where autonomy is transforming the physical and digital economy — and argues that the evidence gap is the one this paper addresses and the precondition for closing the other two at scale. It then specifies how the receipt is anchored, how it is measured (ARAS covariates), and how it maps to five commercial workflows (insurance claims, regulatory filing, multi-party disputes, court evidence, attribution). It closes with a conformance path, an honest accounting of what is and is not yet claimed, and a call to carriers, enterprises, and standards bodies.
 
 The thesis in one sentence: **the party who is liable is the party who cannot prove — and the party who can prove is now the party that gets insured.**
 
@@ -54,7 +54,7 @@ The paper is written for readers with different responsibilities. The sections b
 |---|---|---|
 | **CEO / Board** | Abstract, §1, §2, §11 | Why liability has concentrated on the deployer, and why evidence is the gap |
 | **CFO / CRO** | §2, §3, §6, §10, §11 | The financial exposure, the five board questions, the conformance path |
-| **Insurance underwriter** | §2, §3, §4, §5, §7, Appendix A | What the evidence is, how it maps to underwriting covariates, and what the market has already claimed |
+| **Insurance underwriter** | §2 (esp. §2.5), §3, §4, §5, §7, Appendix A | The protection gap across eight sectors, what the evidence is, how it maps to underwriting covariates, and what the market has already claimed |
 | **MGA / broker** | §2, §6, §7, §11 | The five commercial workflows and the readiness of each |
 | **CISO / CTO** | §4, §5, §8, Appendix B | The architecture, the receipt schema, and the offline verification flow |
 | **General counsel** | §1, §2, §3, §4, §8, §9, Appendix D | The liability framing, the evidentiary distinction, and what the paper does **not** claim |
@@ -163,7 +163,82 @@ The market has already spoken. Insurers have entered. They are not waiting for a
 
 The market has not settled the pricing model yet. It has settled **the direction of the question**: underwriters will bind on evidence, not on attestation. The gap between the two is precisely what this paper calls the evidence layer.
 
-### 2.5 The one-sentence reframe
+### 2.5 The wider protection gap: when the insurance market steps back
+
+The evidence problem described in §2.1–2.4 is not confined to AI agents. It is one instance of a broader pattern that is emerging across the industries being transformed by autonomy — a pattern that is *larger than agentic liability, and more valuable to the insurance market than the current paper's frame suggests.*
+
+This section maps that pattern in three parts: the different kinds of protection gap, the sectors where the gap is most acute, and the structural asymmetry between large technology companies and everyone else. It then returns to the evidence problem, showing why VeriLinkOS's contribution is specifically to the *third* of those gaps.
+
+### 2.5.1 Three different protection gaps
+
+It is common to describe AI-related risk as "uninsured." That is imprecise. There are three distinct protection gaps, and they have different causes and different potential remedies.
+
+| Gap | What it means | Where it appears | What would close it |
+|---|---|---|---|
+| **Capacity gap** | The market cannot or will not provide the full limits required at an acceptable price | Hyperscale data centres, major infrastructure projects, systemic cyber exposure, accumulation risk | More capital, better reinsurance, better accumulation modelling |
+| **Coverage gap** | Insurance exists, but exclusions, sublimits, policy wording, or uncertainty about responsibility leave particular losses outside cover | AI-related professional liability, autonomous machinery, cyber-physical incidents | Clearer policy wordings, affirmative coverage products, regulatory clarity |
+| **Evidence gap** | The insured cannot independently establish what the autonomous system was authorized to do, what it perceived, and what it executed | AI procurement, autonomous trading, robotic operations, agentic cybersecurity | A portable, verifiable record of individual agent actions |
+
+The gaps overlap, but they are not interchangeable. A capacity gap is not solved by better evidence. A coverage gap is not solved by better evidence alone. **An evidence gap, however, is solved by exactly the kind of artifact this paper is about.** And better evidence can, over time, materially improve the resolution of coverage gaps and inform capacity decisions — because an insurer that can price a risk precisely can often underwrite more of it.
+
+This is the precise claim VeriLinkOS makes: **the evidence gap is the one this paper addresses, and closing it is a precondition for closing the other two at scale.** Anything more ambitious would be an over-claim; anything less would undersell the value.
+
+### 2.5.2 Eight priority sectors where the gap is acute
+
+The following table maps eight sectors where the three gaps above are most acute in 2026, and where agentic evidence has direct commercial relevance. The list is not exhaustive — it is a prioritization for underwriting conversations, chosen because in each case the *specific* contribution of the evidence layer is clear.
+
+| Sector | Documented protection-gap signal | Concrete incident scenario | What must be evidenced |
+|---|---|---|---|
+| **Hyperscale data centres** | Capacity constrained at the top end; construction values and GPU concentrations create accumulation risk that challenges single-carrier appetite | Agent changes cooling or workload settings in response to a perceived anomaly, contributing to an outage | Authority, system state, command, resulting action |
+| **Energy grids and power infrastructure** | Grid instability, transformer failures, and dependency between AI load and grid stability create exposures that are not well-modelled | Agent initiates an incorrect load-balancing action on a demand-response platform | Delegation, operational context, command, approval |
+| **Industrial robotics and autonomous factories** | Physical-injury and property-damage exposures cross the software/physical-liability boundary | Robot causes injury to a worker or damages adjacent equipment after a sensor misinterpretation | Instructions, sensor/perception context, safety controls, movement |
+| **Autonomous vehicles and transport** | Control, causation, and attribution questions remain unresolved; evidence formats are not standardized across manufacturers | Vehicle makes a manoeuvre that causes harm; responsibility allocation across manufacturer, operator, and user is contested | Decision context, sensor inputs, authority, control transitions |
+| **Healthcare and medical AI** | Harm attribution across clinicians, hospitals, manufacturers, and software providers creates disputed coverage; clinical decision-support is subject to regulatory and evidentiary scrutiny | AI diagnostic system makes or executes an unsafe recommendation | Clinical context, human approval, model output, executed action |
+| **Financial services and autonomous trading** | Trading agents, credit decisions, and payment authorization create economic losses at machine speed; existing policy wordings are not adapted | Agent executes an unauthorized transaction within a perceived mandate but outside the actual one | Delegation, limits, transaction details, execution receipt |
+| **Global supply chains** | Procurement agents enter contracts and authorise payments; errors propagate through counterparties in ways that standard cargo and liability policies do not capture | Procurement agent enters a harmful contract or authorizes a payment to a misrepresented supplier | Mandate, supplier information, terms presented, commitment made |
+| **Cybersecurity and autonomous defence** | Defensive AI agents take actions (isolate, block, disconnect) that can themselves cause business interruption | Defensive agent disables a critical system incorrectly, mistaking legitimate traffic for an intrusion | Threat information, authority, action, operational impact |
+
+Every example above maps to the same three-element evidence model this paper develops: **authority** (was the agent allowed to do it?), **perception** (what information did it receive or see?), and **action** (what did it actually do, and what record survives?). The specific evidence requirements differ by sector — clinical context for healthcare, sensor input for robotics, mandate and terms for procurement — but the *structure* of the evidence is identical.
+
+That structure is what makes the evidence layer a horizontal infrastructure play, rather than a vertical agent-liability product.
+
+### 2.5.3 The Big Tech asymmetry: risk retention versus the wider market
+
+One structural feature of the protection gap deserves separate treatment, because it changes how the market should think about adoption.
+
+The largest technology companies have options that most enterprises do not:
+
+| Large technology companies | Most other enterprises |
+|---|---|
+| Can retain substantial losses | Often depend on external insurance |
+| May use captive insurance structures | May have limited risk-financing alternatives |
+| Can negotiate bespoke risk arrangements | Often rely on standard policy wordings |
+| Can absorb some uninsured exposure | A major uninsured loss may threaten the business |
+| Have greater control over proprietary infrastructure | Often depend on third-party AI and cloud providers |
+
+This is not a claim that major technology companies are uninsured. Most of them carry substantial commercial insurance and captive structures. The point is that **their risk-financing capacity is fundamentally different from that of the enterprises buying their AI infrastructure** — which means the protection gap affects the two groups in very different ways.
+
+The commercial question this raises for the paper is: **will access to the AI economy's insurance protection become another structural advantage reserved for companies large enough to retain their own risk?**
+
+If the answer is "yes, and there is nothing to be done about it," then the protection gap is a feature of the market's maturity and will close over time. If the answer is "no, and the market could close it faster with better evidence," then the evidence layer becomes a competitive equalizer — a way for smaller enterprises and infrastructure operators to demonstrate risk quality and access coverage that would otherwise be reserved for the largest players.
+
+VeriLinkOS's bet is on the second answer. **The evidence layer is not only about pricing risk more accurately; it is about making risk *transferable* to a broader population of insureds.**
+
+### 2.5.4 Why this matters for the evidence-layer argument
+
+The protection-gap analysis above could be read as an argument for *more insurance capacity* — a topic this paper does not address and is not qualified to solve. That is not its purpose here.
+
+Its purpose is to establish two facts that the rest of the paper depends on:
+
+**First, the evidence problem is larger than the current agent-liability market.** The same three-element evidence model that is required for AI agents in financial services is required for industrial robots, autonomous vehicles, autonomous trading, healthcare AI, and the industrial and infrastructure systems being transformed by autonomy. This is not a single vertical. It is a horizontal infrastructure need that cuts across eight sectors today and will cut across more as autonomy expands into the physical economy.
+
+**Second, closing the evidence gap is a precondition for closing the other two gaps at scale.** An insurer cannot underwrite a risk more precisely without evidence. A carrier cannot offer a coverage form more confidently without evidence. A regulator cannot accept a filing more readily without evidence. The evidence layer is not the whole solution; it is the missing input that makes the other solutions possible.
+
+That is the argument this paper develops in the rest of its pages. The sections that follow — the three underwriter questions (§3), the four gates (§4), the evidence trinity (§5), the five commercial workflows (§6), and the production evidence (§8) — are all specifications of how the evidence layer is produced, verified, and applied.
+
+**A scope note on the numbers.** This section deliberately avoids attaching specific dollar figures to the protection gap. Published estimates for the affected markets vary by three orders of magnitude depending on methodology, market definition, and whether "affected" means "exposed to AI-related risk" or "currently uninsured for AI-related risk." Adding a $400B or $1T figure to this paper would create more credibility risk than it would create urgency. The paper's argument does not depend on a specific size estimate; it depends on the *structural* observation that three distinct gaps exist, and that the third of them is the one this paper addresses.
+
+### 2.6 The one-sentence reframe
 
 **Agentic liability is not a legal exposure to be transferred, but an evidence gap to be closed.**
 
