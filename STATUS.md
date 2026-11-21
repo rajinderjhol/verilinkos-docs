@@ -8,7 +8,7 @@
 ## Verification baseline
 
 - Reference implementation: `github.com/rajinderjhol/VeriLinkOS`
-- Full test suite: **908 passed, 30 skipped, 1 xpassed** (2026-11-21)
+- Full test suite: **909 passed, 30 skipped, 1 xpassed** (2026-11-21)
 - Offline verifier parity: Python / JS / standalone / Studio all passing
 
 ## Shipped capabilities
@@ -53,4 +53,4 @@
 ## Note on numbers in older documents
 
 Whitepapers and blog posts that cite "197+ tests" were accurate when written;
-the current baseline is **908 passing tests** as of 2026-11-21.
+the current baseline is **909 passing tests** as of 2026-11-21.
