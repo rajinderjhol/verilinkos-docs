@@ -1,6 +1,11 @@
 # Verifiable Action Protocol (VAP) v3.5 Specification
 **Open Specification for Cryptographic AI Governance & Action Provenance**
 
+> **Status note (2026-11-21):** v3.5 is a target specification. The reference
+> implementation in `rajinderjhol/VeriLinkOS` currently emits receipts with
+> `version = "3.0"`; the hybrid post-quantum profile and SCITT alignment
+> described here are not yet shipped. See [STATUS.md](../../../STATUS.md).
+
 ---
 
 ## 1. Abstract

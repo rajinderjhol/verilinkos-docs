@@ -15,7 +15,7 @@
 
 ## Abstract
 
-The emergence of autonomous AI agents as first-class actors in enterprise systems creates a fundamental governance gap: how do we control, track, and prove the actions of non-human agents that operate at scale, make decisions independently, and transact with other autonomous systems? We present VeriLinkOS, a production control plane that implements the formal principles of revertible effects and reactive coeffects—previously established in the Cordis framework—specifically for the domain of autonomous AI agents. VeriLinkOS provides five integrated layers: cryptographic identity (W3C DIDs), policy-based authorization (OPA/Rego), fail-closed runtime enforcement (Guardian), verifiable action receipts (VAP), and agent-to-agent settlement. We describe the system architecture, formal mapping to revertible effect theory, implementation in a production-ready Python/FastAPI codebase with 197+ tests, and validation through PersonaVault, a sovereign decision engine built on VeriLinkOS. Our experience demonstrates that the formal principles of dynamic composability, extended with cryptographic proof and cross-organizational trust, provide a viable foundation for governing autonomous agentic systems at enterprise scale. The system is currently undergoing enterprise pilot validation with early adopters.
+The emergence of autonomous AI agents as first-class actors in enterprise systems creates a fundamental governance gap: how do we control, track, and prove the actions of non-human agents that operate at scale, make decisions independently, and transact with other autonomous systems? We present VeriLinkOS, a production control plane that implements the formal principles of revertible effects and reactive coeffects—previously established in the Cordis framework—specifically for the domain of autonomous AI agents. VeriLinkOS provides five integrated layers: cryptographic identity (W3C DIDs), policy-based authorization (OPA/Rego), fail-closed runtime enforcement (Guardian), verifiable action receipts (VAP), and agent-to-agent settlement. We describe the system architecture, formal mapping to revertible effect theory, implementation in a production-ready Python/FastAPI codebase with 894 passing tests (as of 2026-11-21), and validation through PersonaVault, a sovereign decision engine built on VeriLinkOS. Our experience demonstrates that the formal principles of dynamic composability, extended with cryptographic proof and cross-organizational trust, provide a viable foundation for governing autonomous agentic systems at enterprise scale. The system is currently undergoing enterprise pilot validation with early adopters.
 
 ---
 
@@ -669,7 +669,7 @@ VeriLinkOS is currently in the **enterprise pilot validation phase** (Q4 2026 / 
 | Autonomous Actions | 100% cryptographically anchored |
 | Simulated Settled Value | $4.85M+ |
 | Guardian SLA | <100ms fail-closed response |
-| Test Coverage | 197/197 tests passing |
+| Test Coverage | 894 passing / 0 failing (as of 2026-11-21) |
 
 ### 6.5. Enterprise Pilot Engagement
 
