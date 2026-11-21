@@ -14,7 +14,10 @@
 ## Shipped capabilities
 
 - Fail-closed Guardian enforcement with canonical VAP receipts (code emits
-  receipt `version = "3.0"`).
+  receipt `version = "3.0"`). ML-DSA-87 hybrid signing is org-controlled via
+  the `/organization` preference; the receipt proof carries `pq_signature`
+  and `pq_signer_public_key` when enabled, and `signature_algorithm` becomes
+  `Ed25519+ML-DSA-87`. Enabling without liboqs/keys is rejected.
 - Anchoring has two layers: a real local/offline Merkle-root anchor produced for
   every receipt, and an optional public/private chain broadcast via web3. Multi-hash batches let one anchor cover many receipts with per-leaf inclusion proofs. A
   Polygon Amoy testnet transaction and block were confirmed 2026-11-21 — see
