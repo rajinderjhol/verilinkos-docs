@@ -11,7 +11,10 @@ implementation. VeriLinkOS has **two anchoring layers**:
    and block derived from that root. This is decision evidence and works in
    air-gapped or development environments; the chain label `Polygon (Simulated)`
    honestly means "no public chain was contacted", not "no anchor exists".
-2. **Public / private chain anchor (optional).** When `BLOCKCHAIN_MODE` selects
+2. **Multi-hash batching.** `/v1/anchoring/batches` commits many receipt
+   hashes to one Merkle root with per-leaf inclusion proofs; one anchor can
+   cover many receipts. Legacy single-leaf receipts stay verifiable.
+3. **Public / private chain anchor (optional).** When `BLOCKCHAIN_MODE` selects
    a real chain and an RPC/key are configured, the Merkle root is broadcast
    with real `web3` code (`AsyncWeb3`, EIP-1559 fees, `send_raw_transaction`)
    and verified on-chain. Public blockchains are optional for specific use
