@@ -3,8 +3,10 @@
 
 > **Status note (2026-11-21):** v3.5 is a target specification. The reference
 > implementation in `rajinderjhol/VeriLinkOS` currently emits receipts with
-> `version = "3.0"`; the hybrid post-quantum profile and SCITT alignment
-> described here are not yet shipped. See [STATUS.md](../../../STATUS.md).
+> `version = "3.0"`. The hybrid ML-DSA-87 signature profile described here is
+> implemented in that v3.0 format (org-controlled via `/organization`) and is
+> verified offline; SCITT alignment remains discussion-only. See
+> [STATUS.md](../../../STATUS.md).
 
 ---
 

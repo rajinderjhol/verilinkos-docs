@@ -8,7 +8,7 @@
 ## Verification baseline
 
 - Reference implementation: `github.com/rajinderjhol/VeriLinkOS`
-- Full test suite: **903 passed, 30 skipped, 1 xpassed** (2026-11-21)
+- Full test suite: **908 passed, 30 skipped, 1 xpassed** (2026-11-21)
 - Offline verifier parity: Python / JS / standalone / Studio all passing
 
 ## Shipped capabilities
@@ -17,7 +17,9 @@
   receipt `version = "3.0"`). ML-DSA-87 hybrid signing is org-controlled via
   the `/organization` preference; the receipt proof carries `pq_signature`
   and `pq_signer_public_key` when enabled, and `signature_algorithm` becomes
-  `Ed25519+ML-DSA-87`. Enabling without liboqs/keys is rejected.
+  `Ed25519+ML-DSA-87`. Enabling without liboqs/keys is rejected. See
+  [PQ_EVIDENCE.md](PQ_EVIDENCE.md) for a real dual-signed receipt and its
+  offline verification result.
 - Anchoring has two layers: a real local/offline Merkle-root anchor produced for
   every receipt, and an optional public/private chain broadcast via web3. Multi-hash batches let one anchor cover many receipts with per-leaf inclusion proofs. A
   Polygon Amoy testnet transaction and block were confirmed 2026-11-21 — see
@@ -37,15 +39,18 @@
 - Operational dashboard: Today action queue, Deals lifecycle, Governance
   control room, Agent lifecycle, and VAP search/verify/export.
 
-## Forward-looking only (do not present as shipped)
+## Forward-looking only (not present as shipped or Roadmap)
 
 - SCITT transparency service — discussion document only.
 - External A2A conformance/certification.
-- VAP **v3.5** features (including hybrid PQ signature profile) are specified
-  here as a target; the reference implementation currently emits `3.0`.
+- VAP **v3.5** is a target specification; the reference implementation emits
+  receipts with `version = "3.0"`. The hybrid ML-DSA-87 signature profile is
+  already implemented in that v3.0 receipt format (org-controlled via
+  `/organization`), and the offline verifier checks both signatures. SCITT
+  alignment remains discussion-only.
 - Rego/OPA in-browser policy playground; privacy and sovereignty proposals.
 
 ## Note on numbers in older documents
 
 Whitepapers and blog posts that cite "197+ tests" were accurate when written;
-the current baseline is **903 passing tests** as of 2026-11-21.
+the current baseline is **908 passing tests** as of 2026-11-21.
