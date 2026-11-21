@@ -750,4 +750,4 @@ DQI-1, DQI-5, and DQI-6 assess the quality of the *authorization* (ACAP §C). DQ
 
 *This standard is published for public review and adoption. Comments, corrections, and proposed amendments should be submitted to the steward body identified in §11.1.*
 
-*The reference implementation of ARAS is available as open-source software under the MIT license. The conformance test suite is available under CC BY-SA 4.0.*
+*The reference implementation of ARAS is available as open-source software under the MIT license. The conformance test suite is planned for a future revision (see ARAS-v1.0/README.md).*

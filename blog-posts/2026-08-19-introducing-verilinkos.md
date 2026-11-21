@@ -4,7 +4,7 @@
 
 Autonomous AI agents are becoming the new workforce. By 2030, the agentic AI market is projected to exceed $64B. But here's the problem: existing enterprise security and identity infrastructure was built for humans, not agents.
 
-Enter VeriLinkOS — a production-ready control plane that gives every AI agent identity, governance, and cryptographic proof.
+Enter VeriLinkOS — a control plane with a shipped core that gives every AI agent identity, governance, and cryptographic proof.
 
 ## The Governance Gap
 

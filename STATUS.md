@@ -15,6 +15,13 @@
 
 - Fail-closed Guardian enforcement with canonical VAP receipts (code emits
   receipt `version = "3.0"`).
+- Anchoring has two layers: a real local/offline Merkle-root anchor produced for
+  every receipt, and an optional public/private chain broadcast via web3. A
+  Polygon Amoy testnet transaction and block were confirmed 2026-11-21 — see
+  [ANCHORING_EVIDENCE.md](ANCHORING_EVIDENCE.md). Development defaults to
+  `BLOCKCHAIN_MODE=SIMULATED` (offline anchor only, no chain spend); real chain
+  mode is enabled by configuration and fails closed on chain errors. Blockchain
+  is optional for specific use cases, not required for every high-risk sector.
 - Persisted, org-scoped agent-to-agent messaging and a local A2A v1.0 gateway
   (Agent Card, JSON-RPC, SSE streaming, push notifications, task lifecycle).
 - Trust lifecycle and reputation protocol with versioned formulas, signed

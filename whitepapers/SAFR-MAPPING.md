@@ -561,7 +561,7 @@ VeriLinkOS is the reference implementation of VAP v3.5.
 
 **Conformance tests:**
 
-`github.com/rajinderjhol/verilinkos-docs/protocols/vap/v3.5/conformance`
+`protocols/vap/v3.5/` (conformance suite planned, not yet published)
 
 ---
 

@@ -19,7 +19,7 @@ Acts as the "Kernel" of the OS, intercepting all AI intents before they are exec
 Provides ethical and legal guardrails for AI behavior through a modular `MetaRuleSet`.
 
 ### 3. Policy Engine Layer
-Handles dynamic, organization-specific policy evaluation using OPA/Rego and high-performance Redis caching.
+Handles dynamic, organization-specific policy evaluation using CEL, with optional external OPA/Rego, and an in-memory policy cache.
 
 ### 4. Cryptographic Core
 Generates Verifiable Action Protocol (VAP) receipts, Merkle tree batching, and blockchain anchoring for tamper-evident evidence.
@@ -35,7 +35,7 @@ VeriLinkOS bridges the "Permit-to-Settlement Gap"—the interval between an auth
 - **Lifecycle Visualization**: Providing real-time dashboard visibility into the `permit_granted` → `executing` → `settlement_complete` lifecycle.
 
 ## 🔌 Sovereign Governance Switchboard (MCP)
-100% compliant with the Model Context Protocol (MCP) 2026-07-28 specification, VeriLinkOS acts as a gateway for any MCP client (Cursor, Claude, AutoGen) to enforce governance and settlement.
+Implements the MCP 2026-07-28 tool/transport surface (no third-party conformance certification); VeriLinkOS acts as a gateway for MCP clients to enforce governance and settlement.
 
 ## 🌐 Agentic Execution Mesh
 Supports multi-hop delegation, SPIFFE/SVID mutual TLS, and 5D vector trust scoring across organizational boundaries.

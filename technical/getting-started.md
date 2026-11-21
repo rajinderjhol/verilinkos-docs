@@ -9,22 +9,16 @@ This guide provides a 5-minute quickstart to deploying VeriLinkOS for your AI ag
 
 ## 2. Installation
 ```bash
-pip install verilinkos
+pip install verilink-sdk
 ```
 
 ## 3. Quickstart: Protect Your First Agent
 
 ```python
-from verilinkos.guardian import Guardian
+from verilink.adapters.decorator import enforce
 
-# Initialize Guardian
-guardian = Guardian(
-    policy_engine_url="http://localhost:8181",
-    kms_key_id="aws-kms-key-id"
-)
-
-# Enforce governance
-@guardian.enforce(action_type="agent_decision")
+# Enforce governance on an agent action (SDK configures the endpoint and key)
+@enforce(action_type="ai_decision")
 def make_ai_decision(query: str) -> dict:
     # Your agent logic here
     return {"result": "ok"}
@@ -34,4 +28,4 @@ def make_ai_decision(query: str) -> dict:
 *   Review [API Reference](api-reference.md) for advanced Guardian configuration.
 
 ---
-*Note: This is the authoritative technical documentation for VeriLinkOS.*
+*Note: see [STATUS.md](../STATUS.md) for the authoritative current implementation status.*

@@ -217,8 +217,8 @@ VeriLinkOS v2.4.0 is a **production-ready Active Governance Platform**. The code
 | **Memory Poisoning Detection** | ✅ Production-ready | `memory_guard.py` |
 | **Multi-Agent Arbitration** | ✅ Production-ready | `guardian.py` (arbitrate) |
 | **KMS Integration** | ✅ Production-ready | `kms.py` |
-| **Blockchain Anchoring** | ✅ Production-ready | `blockchain.py` |
-| **OPA/Rego Integration** | ✅ Production-ready | `policy.rego` |
+| **Blockchain Anchoring** | ✅ Implemented; simulated by default in dev | `blockchain.py` |
+| **OPA/Rego Integration** | ⚠️ Optional external OPA; CEL is primary | `policy_engine.py` |
 | **CLI & SDK** | ✅ Production-ready | `verilink_cli.py`, `verilink_sdk.py` |
 | **Performance** | ✅ Benchmark-tested | <100ms enforcement, <1ms receipt generation |
 

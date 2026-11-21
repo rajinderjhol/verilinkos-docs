@@ -71,7 +71,7 @@ We present VeriLinkOS as a production implementation of these principles, extend
 
 We make the following contributions:
 
-1. A production-ready control plane for autonomous AI agents, implementing revertible effects and reactive coeffects
+1. A control plane for autonomous AI agents with a shipped core and enterprise pilots in progress, implementing revertible effects and reactive coeffects
 2. Formal mapping from Cordis theory to VeriLinkOS implementation
 3. Validation through PersonaVault, a sovereign decision engine built on VeriLinkOS
 4. Experience report from building and piloting a production-ready agent governance system
@@ -172,7 +172,7 @@ VeriLinkOS provides five integrated layers for agent governance:
 
 ### 3.2. Layer 1: Identity (Trust Passports & DIDs)
 
-Each agent receives a W3C-compliant `did:mesh` identity with Ed25519 cryptographic keys:
+Each agent receives a W3C-DID-shaped `did:mesh` identity resolved from the local agent registry, with Ed25519 keys:
 
 ```python
 class TrustPassport:
@@ -229,7 +229,7 @@ The proof includes:
 class VAPProof:
     merkle_root: str              # Root of action Merkle tree
     merkle_path: List[str]        # Inclusion proof
-    anchors: List[BlockchainAnchor]  # Polygon mainnet/amoy
+    anchors: List[BlockchainAnchor]  # optional on-chain anchor (local anchor always present)
     signature: str                # Ed25519 signature
     signer_public_key: str
 ```
@@ -436,7 +436,7 @@ VeriLinkOS/
 │   └── ...
 ├── verilink_sdk.py       # Python SDK
 ├── verilink-verifier/    # Open-source verifier package
-├── tests/                # 197+ automated tests
+├── tests/                # 894 passing tests (2026-11-21)
 └── k8s/                  # Kubernetes deployment manifests
 ```
 
@@ -589,12 +589,12 @@ This mechanism ensures that an auditor can verifiably link the final settled sta
 
 ### 5.4. Testing and Quality
 
-VeriLinkOS maintains 197+ automated tests with 100% pass rate:
+VeriLinkOS maintains 894 passing tests (30 skipped, 1 xpassed) as of 2026-11-21:
 
 ```bash
 $ pytest -v
 ============================= test session starts =============================
-collected 197 items
+collected 925 items
 
 test_api.py ....................... PASSED
 test_vap.py ........................ PASSED
@@ -605,7 +605,7 @@ test_trust_passport.py ............. PASSED
 test_policy_engine.py .............. PASSED
 ...
 
-============================= 197 passed in 44s ==============================
+============================= 894 passed (2026-11-21) ==============================
 ```
 
 ---
@@ -657,7 +657,7 @@ VeriLinkOS is currently in the **enterprise pilot validation phase** (Q4 2026 / 
 |-------------------|-------|--------|
 | Simulation & Test Environment | 12,840+ simulated agents | ✅ Complete |
 | PersonaVault Reference Implementation | Full decision engine | ✅ Complete |
-| Test Suite | 197+ automated tests | ✅ Complete |
+| Test Suite | 894 passing tests (2026-11-21) | ✅ Complete |
 | Security Auditing | Internal security review | ✅ Complete |
 | Enterprise Pilots | Early adopter engagements | 🔄 In Progress |
 
@@ -666,7 +666,7 @@ VeriLinkOS is currently in the **enterprise pilot validation phase** (Q4 2026 / 
 | Metric | Value |
 |--------|-------|
 | Simulated Agents | 12,840+ |
-| Autonomous Actions | 100% cryptographically anchored |
+| Autonomous Actions | Local/offline Merkle anchor on every receipt; optional on-chain anchor |
 | Simulated Settled Value | $4.85M+ |
 | Guardian SLA | <100ms fail-closed response |
 | Test Coverage | 894 passing / 0 failing (as of 2026-11-21) |
@@ -711,7 +711,7 @@ We are actively engaged with:
 
 **Formal Verification**: We plan to formally verify the VAP protocol and Guardian enforcement using proof assistants (Coq/Lean).
 
-**Post-Quantum Cryptography**: VeriLinkOS currently supports ML-DSA-87 (Dilithium 5) hybrid signatures. We plan to make post-quantum cryptography the default.
+**Post-Quantum Cryptography**: VeriLinkOS optionally supports ML-DSA-87 (Dilithium 5) hybrid signatures on receipts when PQ keys are configured; it is not enabled by default.
 
 **Enterprise Commercialization**: We are actively pursuing enterprise pilot conversions to paid production deployments.
 
@@ -719,11 +719,11 @@ We are actively engaged with:
 
 ## 8. Conclusion
 
-We have presented VeriLinkOS, a production-ready control plane for autonomous AI agents that implements the formal principles of revertible effects and reactive coeffects from the Cordis framework. VeriLinkOS extends Cordis with cryptographic identity, cryptographic proof, cross-organizational trust, and agent-to-agent commerce—the essential ingredients for governing autonomous agentic systems at enterprise scale.
+We have presented VeriLinkOS, a control plane for autonomous AI agents with a shipped core that implements the formal principles of revertible effects and reactive coeffects from the Cordis framework. VeriLinkOS extends Cordis with cryptographic identity, cryptographic proof, cross-organizational trust, and agent-to-agent commerce—the essential ingredients for governing autonomous agentic systems at enterprise scale.
 
 VeriLinkOS demonstrates that the formal foundations of dynamic composability can be successfully extended and deployed in real-world agentic systems. The PersonaVault reference implementation and simulation environment validate the approach, with 12,840+ simulated agents governed, 100% of actions cryptographically anchored, and $4.85M+ in simulated settled value. Enterprise pilots are currently in progress to validate commercial adoption.
 
-As autonomous AI agents become the primary economic actors of the 21st century, the control plane that governs them becomes as essential as the operating system that runs them. VeriLinkOS is a step toward that future—a formally grounded, production-ready control plane for the agentic economy.
+As autonomous AI agents become the primary economic actors of the 21st century, the control plane that governs them becomes as essential as the operating system that runs them. VeriLinkOS is a step toward that future—a formally grounded control plane for the agentic economy, with shipped core and pilots in progress.
 
 ---
 

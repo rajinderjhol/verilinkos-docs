@@ -373,8 +373,8 @@ This framework has been implemented in **VeriLinkOS v2.4.0**, a comprehensive ac
 | Anchoring Mechanisms | ✅ Multiple options |
 | Human Oversight | ✅ Demonstrated |
 | Governance Dashboard | ✅ Demonstrated |
-| Offline Verification | 🔄 Under Development |
-| IETF SCITT Integration | 🔄 Architecture-Ready |
+| Offline Verification | ✅ Shipped (Python / JS / standalone / Studio) |
+| IETF SCITT Integration | ⚪ Discussion / roadmap only |
 | Nuclear Verification Pilots | 🔄 Under Discussion |
 | Biological Verification Pilots | 🔄 Under Discussion |
 

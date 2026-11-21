@@ -96,7 +96,7 @@ Implementations MUST refer to `security/threat-model.md` for comprehensive prote
 ---
 
 ## 8. Conformance & Test Vectors
-Implementations MUST pass the conformance tests defined in the `conformance/` directory, including valid and invalid JSON vectors.
+A conformance suite with valid and invalid JSON vectors is planned; it is not yet published in this repository.
 
 ---
 

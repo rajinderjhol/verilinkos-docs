@@ -32,7 +32,7 @@ This paper distinguishes three levels of maturity. Every claim about the archite
 | **[SPECIFIED]** | The format, protocol, or architectural element is fully specified, with a conformance test or a reference implementation, but has not been exercised at scale in production. | You can implement it. |
 | **[PROPOSED]** | The element is a design intention or a market hypothesis. No implementation, conformance test, or production evidence yet exists. | You can critique it, fund it, or adopt it early. |
 
-Where the paper does not attach a marker, the default is [SPECIFIED] — the element is part of the architecture the paper argues for, not a claim that it exists in production everywhere. The one exception is the anchoring evidence in Section 8 and in the companion document `ANCHORING_EVIDENCE.md`, which is [IMPLEMENTED] with confirmed on-chain transactions. Section 9 enumerates what the paper does not claim.
+Where the paper does not attach a marker, the default is [SPECIFIED] — the element is part of the architecture the paper argues for, not a claim that it exists in production everywhere. The one exception is the anchoring evidence in Section 8 and in the companion document `ANCHORING_EVIDENCE.md`, which is [IMPLEMENTED] with a confirmed transaction on Polygon Amoy testnet. Development defaults to `BLOCKCHAIN_MODE=SIMULATED`; the testnet transaction was produced with real mode enabled. Section 9 enumerates what the paper does not claim.
 
 ---
 
@@ -705,7 +705,7 @@ The evidence layer is the category that closes the gap. It is not a product — 
 
 ## 8. What Good Evidence Looks Like in Production
 
-The four gates and the evidence trinity are specifications. This section is a description of what those specifications produce when they run. **[IMPLEMENTED]** — every step below corresponds to code in the reference implementation, and the anchor evidence cited in Section 8 and in `ANCHORING_EVIDENCE.md` is confirmed on-chain.
+The four gates and the evidence trinity are specifications. This section is a description of what those specifications produce when they run. **[IMPLEMENTED]** — every step below corresponds to code in the reference implementation, and the anchor evidence cited in Section 8 and in `ANCHORING_EVIDENCE.md` is a confirmed on-chain transaction on Polygon Amoy (testnet); real-chain mode is off by default in development.
 
 ### 8.1 The moment of action
 
