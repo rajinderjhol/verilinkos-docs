@@ -9,10 +9,10 @@
 ## Verification baseline
 
 - Reference implementation: `github.com/rajinderjhol/VeriLinkOS`
-- Full test suite: **948 passed, 29 skipped, 1 xfailed** (2026-11-22)
+- Full test suite: **976 passed, 29 skipped, 1 xfailed** (2026-11-22)
 - Live API smoke test: 16/16 checks (2026-11-22)
 - Offline verifier parity: Python / JS / standalone / Studio all passing
-- Conformance self-test vectors: 24/24 (see [CONFORMANCE.md](CONFORMANCE.md))
+- Conformance self-test vectors: 37/37 (see [CONFORMANCE.md](CONFORMANCE.md))
 
 ## Shipped capabilities
 
@@ -35,9 +35,27 @@
 - **Signed offline verification bundle:** a third party can verify a receipt with
   no account, network or platform trust. All verifier surfaces share one engine,
   and differential tests assert identical verdicts. See [OFFLINE_BUNDLE.md](OFFLINE_BUNDLE.md).
+- **ARAS v1.0 covariate reporting:** `POST /v1/analytics/aras/report` extracts
+  covariates from supplied receipts and explicit deployment facts, scores them
+  per the published methodology, and reports the tier. Covariates that cannot
+  be sourced stay `null` and are scored worst-case — no invented values. The
+  endpoint is advisory and never affects an integrity check or approval.
+- **Link Safety decisions:** a URL check produces a signed advisory `LNK-*`
+  decision with attributable intel signals (source, confidence, timestamp),
+  SSRF-safe redirect analysis and a signed bundle export. The dashboard tab is
+  operational: allow/block watchlist CRUD (soft-delete), decision detail,
+  append-only analyst reviews and bundle download. Signed decisions are
+  immutable and cannot be deleted. These are evidence, not an execution gate.
+  See [LINK_SAFETY_EVIDENCE.md](LINK_SAFETY_EVIDENCE.md).
+- **Trustable links and QR:** signed link declarations with a published well-known
+  key, client-side WebCrypto verification, QR encoding and revocation. A dedicated
+  tab issues, verifies and manages declarations. See [TRUSTABLE_LINKS_AND_QR.md](TRUSTABLE_LINKS_AND_QR.md).
+- **Single deployment URL config:** `VERILINK_BASE_URL` / `VERILINK_PUBLIC_URL` /
+  `VERILINK_ISSUER_URL` drive all well-known, DID, MCP and SPDX URLs. See
+  [DEPLOYMENT_CONFIG.md](DEPLOYMENT_CONFIG.md).
 - **Conformance self-tests:** offline vector runner for ARAS v1.0 scoring, A2A gateway
-  lifecycle and MCP JSON-RPC 2.0. See [CONFORMANCE.md](CONFORMANCE.md). These are
-  self-tests, **not** external certification.
+  lifecycle, MCP JSON-RPC 2.0 and a labelled Link Safety corpus. See
+  [CONFORMANCE.md](CONFORMANCE.md). These are self-tests, **not** external certification.
 - **DID boundary:** only local `did:mesh` / `did:human` methods resolve; `did:key` and
   `did:web` fail closed. See [DID_INTEROP.md](DID_INTEROP.md). Receipt verification
   uses embedded public keys, not a DID resolver.
@@ -87,7 +105,7 @@
 
 ## Note on numbers in older documents
 
-Whitepapers and blog posts that cite "197+ tests", "913 tests" or "935 tests"
-were accurate when written; the current VeriLinkOS baseline is **948 passing
-tests** as of 2026-11-22. PersonaVault has its own separate suite (897 passing)
-and is not included in this number.
+Whitepapers and blog posts that cite "197+ tests", "913 tests", "935 tests" or
+"948 tests" were accurate when written; the current VeriLinkOS baseline is
+**976 passing tests** as of 2026-11-22. PersonaVault has its own separate suite
+(897 passing) and is not included in this number.

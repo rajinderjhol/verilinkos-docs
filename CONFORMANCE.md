@@ -11,6 +11,7 @@ VeriLinkOS ships an **offline conformance vector suite** for three surfaces:
 | A2A v1.0 (gateway subset) | 5 | Supported JSON-RPC methods, error code for unknown methods, complete task-state set, terminal states, legal/illegal transitions |
 | MCP JSON-RPC 2.0 (2026-07-28) | 6 | Advertised spec version, server-card/method consistency, standard error codes, request envelope parsing, supported core methods |
 | ARAS v1.0 | 13 | Covariate normalization (bounded/fractional/boolean/categorical), direction inversion for DQI covariates, null-worst-case penalty, dimension aggregation, composite weighting, tier/band boundaries |
+| Link Safety (synthetic corpus) | 13 | 12 labelled URL vectors plus precision/recall/false-positive metrics; deterministic offline with unfurling disabled |
 
 Run them locally:
 
@@ -20,10 +21,16 @@ cd VeriLinkOS-main
 ```
 
 The suite is also wired into pytest as `conformance/test_conformance.py`, so it
-runs with the full VeriLinkOS test suite. Result at last review: **24/24 vectors passed**.
+runs with the full VeriLinkOS test suite. Result at last review: **37/37 vectors passed**.
+The Link Safety corpus is synthetic and cannot support real-world protection or
+underwriting claims; see [LINK_SAFETY_EVIDENCE.md](LINK_SAFETY_EVIDENCE.md).
 
 The ARAS reference implementation is `verilink/services/aras.py`; the normative
-source is `standards/ARAS-v1.0/ARAS-v1.0.md` §6–§7 and Appendix A.
+source is `standards/ARAS-v1.0/ARAS-v1.0.md` §6–§7 and Appendix A. The same
+scorer backs the advisory endpoint `POST /v1/analytics/aras/report`, which adds
+covariate extraction from real receipts and explicit deployment facts. Missing
+covariates stay `null` and are scored worst-case; the endpoint never gates
+approval or integrity.
 
 ## Status of external claims
 
