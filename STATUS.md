@@ -9,7 +9,7 @@
 ## Verification baseline
 
 - Reference implementation: `github.com/rajinderjhol/VeriLinkOS`
-- Full test suite: **1013 passed, 29 skipped, 1 xfailed** (2026-11-22)
+- Full test suite: **1016 passed, 29 skipped, 1 xfailed** (2026-11-22)
 - Live API smoke test: 16/16 checks (2026-11-22)
 - Offline verifier parity: Python / JS / standalone / Studio all passing
 - Conformance self-test vectors: 37/37 (see [CONFORMANCE.md](CONFORMANCE.md))
@@ -62,6 +62,27 @@
 - **Multi-tenant trust:** per-tenant derived signing keys, tenant-scoped
   well-known discovery, verified-domain binding for link declarations and
   federation peer anchors. See [DEPLOYMENT_CONFIG.md](DEPLOYMENT_CONFIG.md).
+- **Guardian console:** the workspace now reports the Guardian kernel's own
+  status, HITL quality, constitutional metrics/rules and circuit-breaker state,
+  and exposes enforce/arbitrate actions — each from its owning backend service.
+  The Kernel section is navigable via a section entry and four sub-tabs (status,
+  HITL, constitutional, tools). Constitutional pass-rate and average-time are
+  not instrumented and are displayed as unavailable rather than fabricated;
+  the status latency is labelled as a fixed target, not a measurement.
+- **Dual-Use section:** a navigable Guardian section with Posture, Policy and
+  Evidence sub-tabs. Posture records the original Neutral Data Embassy design
+  intent and possible extension to submarine cables and space-based data
+  centres as forward-looking context only — no cable, satellite or orbital
+  telemetry monitoring is claimed, and the system does not determine legal
+  status under humanitarian law. Policy and Evidence bind to real `/v1/policies`
+  and signed `/v1/vap/receipts` data; the fabricated detection scores and alerts
+  were removed. The Audit Trail now reads real `/v1/audit/logs`.
+- **ADEM primitives (feature-flagged, default off):** signed JWS/CWT emblems for
+  the IETF DIEM workstream (`draft-linker-diem-adem-core-00`,
+  `draft-ietf-diem-requirements-03`) with a `/.well-known/adem/{asset_id}`
+  discovery endpoint and claim validators. Enabled by `ADEM_ENABLED=true`. This
+  is an implementation of an IETF draft — not certification or endorsement by
+  the ICRC, and no protection status is conferred by an emblem.
 - **Browser authentication:** httpOnly session cookie only — no credentials in
   localStorage; login no longer exposes the deployment API key; per-org keys
   are created once and managed in Profile settings. See
@@ -109,6 +130,9 @@
 - External ARAS validation against a book of real claims (covariates are extractable,
   loss correlation is an open empirical question).
 - Any defined interoperation or shared trust fabric between VeriLinkOS and PersonaVault.
+- Dual-use applicability to Neutral Data Embassies, submarine cables and
+  space-based infrastructure beyond the policy/evidence substrate described
+  above — design context only, not implemented monitoring or certification.
 - Automated domain-verification challenges and external KMS backing for tenant keys.
 - VAP **v3.5** is a target specification; the reference implementation emits
   receipts with `version = "3.0"`. The hybrid ML-DSA-87 signature profile is
@@ -121,5 +145,5 @@
 
 Whitepapers and blog posts that cite "197+ tests", "913 tests", "935 tests",
 "948 tests", "976 tests", "982 tests" or "986 tests" were accurate when written;
-the current VeriLinkOS baseline is **1013 passing tests** as of 2026-11-22. PersonaVault has
+the current VeriLinkOS baseline is **1016 passing tests** as of 2026-11-22. PersonaVault has
 its own separate suite (897 passing) and is not included in this number.
