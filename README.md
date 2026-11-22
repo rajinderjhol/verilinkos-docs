@@ -8,6 +8,7 @@
 > Link Safety evidence and limits: [LINK_SAFETY_EVIDENCE.md](LINK_SAFETY_EVIDENCE.md).
 > Trustable links and QR codes for banks: [TRUSTABLE_LINKS_AND_QR.md](TRUSTABLE_LINKS_AND_QR.md).
 > Deployment URL configuration: [DEPLOYMENT_CONFIG.md](DEPLOYMENT_CONFIG.md).
+> Dashboard value audit: [DASHBOARD_VALUE_AUDIT.md](DASHBOARD_VALUE_AUDIT.md).
 > DID support boundary: [DID_INTEROP.md](DID_INTEROP.md).
 > It supersedes older test counts and "shipped" claims in historical documents.
 

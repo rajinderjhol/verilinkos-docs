@@ -9,7 +9,7 @@
 ## Verification baseline
 
 - Reference implementation: `github.com/rajinderjhol/VeriLinkOS`
-- Full test suite: **976 passed, 29 skipped, 1 xfailed** (2026-11-22)
+- Full test suite: **1013 passed, 29 skipped, 1 xfailed** (2026-11-22)
 - Live API smoke test: 16/16 checks (2026-11-22)
 - Offline verifier parity: Python / JS / standalone / Studio all passing
 - Conformance self-test vectors: 37/37 (see [CONFORMANCE.md](CONFORMANCE.md))
@@ -40,6 +40,12 @@
   per the published methodology, and reports the tier. Covariates that cannot
   be sourced stay `null` and are scored worst-case — no invented values. The
   endpoint is advisory and never affects an integrity check or approval.
+- **Dashboard value audit:** an honest classification of all 43 tabs into closed
+  loops, conditional surfaces and dead ends, with an activation plan. Empty
+  collections now explain why they are empty and offer the action that fills
+  them across the top 10 tabs. The four Consoles workspaces (Guardian, Trust
+  Center, Insurance, Commerce) no longer fabricate data on failure. See
+  [DASHBOARD_VALUE_AUDIT.md](DASHBOARD_VALUE_AUDIT.md).
 - **Link Safety decisions:** a URL check produces a signed advisory `LNK-*`
   decision with attributable intel signals (source, confidence, timestamp),
   SSRF-safe redirect analysis and a signed bundle export. The dashboard tab is
@@ -51,8 +57,15 @@
   key, client-side WebCrypto verification, QR encoding and revocation. A dedicated
   tab issues, verifies and manages declarations. See [TRUSTABLE_LINKS_AND_QR.md](TRUSTABLE_LINKS_AND_QR.md).
 - **Single deployment URL config:** `VERILINK_BASE_URL` / `VERILINK_PUBLIC_URL` /
-  `VERILINK_ISSUER_URL` drive all well-known, DID, MCP and SPDX URLs. See
-  [DEPLOYMENT_CONFIG.md](DEPLOYMENT_CONFIG.md).
+  `VERILINK_ISSUER_URL` drive deployment URLs; `VERILINK_SITE_URL` /
+  `VERILINK_DOCS_URL` drive corporate identity and documentation links.
+- **Multi-tenant trust:** per-tenant derived signing keys, tenant-scoped
+  well-known discovery, verified-domain binding for link declarations and
+  federation peer anchors. See [DEPLOYMENT_CONFIG.md](DEPLOYMENT_CONFIG.md).
+- **Browser authentication:** httpOnly session cookie only — no credentials in
+  localStorage; login no longer exposes the deployment API key; per-org keys
+  are created once and managed in Profile settings. See
+  [DASHBOARD_VALUE_AUDIT.md](DASHBOARD_VALUE_AUDIT.md).
 - **Conformance self-tests:** offline vector runner for ARAS v1.0 scoring, A2A gateway
   lifecycle, MCP JSON-RPC 2.0 and a labelled Link Safety corpus. See
   [CONFORMANCE.md](CONFORMANCE.md). These are self-tests, **not** external certification.
@@ -96,6 +109,7 @@
 - External ARAS validation against a book of real claims (covariates are extractable,
   loss correlation is an open empirical question).
 - Any defined interoperation or shared trust fabric between VeriLinkOS and PersonaVault.
+- Automated domain-verification challenges and external KMS backing for tenant keys.
 - VAP **v3.5** is a target specification; the reference implementation emits
   receipts with `version = "3.0"`. The hybrid ML-DSA-87 signature profile is
   already implemented in that v3.0 receipt format (org-controlled via
@@ -105,7 +119,7 @@
 
 ## Note on numbers in older documents
 
-Whitepapers and blog posts that cite "197+ tests", "913 tests", "935 tests" or
-"948 tests" were accurate when written; the current VeriLinkOS baseline is
-**976 passing tests** as of 2026-11-22. PersonaVault has its own separate suite
-(897 passing) and is not included in this number.
+Whitepapers and blog posts that cite "197+ tests", "913 tests", "935 tests",
+"948 tests", "976 tests", "982 tests" or "986 tests" were accurate when written;
+the current VeriLinkOS baseline is **1013 passing tests** as of 2026-11-22. PersonaVault has
+its own separate suite (897 passing) and is not included in this number.
