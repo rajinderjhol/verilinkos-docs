@@ -40,6 +40,12 @@
   per the published methodology, and reports the tier. Covariates that cannot
   be sourced stay `null` and are scored worst-case — no invented values. The
   endpoint is advisory and never affects an integrity check or approval.
+- **Risk exposure and loss model:** there is no validated loss model, so the
+  Guardian card shows `—`. The quote endpoint now returns an explicitly
+  illustrative, non-binding indication; no carrier, discount, coverage limit or
+  VAP-proof claim is made. See
+  [RISK_EXPOSURE_AND_LOSS_MODEL.md](RISK_EXPOSURE_AND_LOSS_MODEL.md) for the
+  formulas that do exist and the gaps to production readiness.
 - **Dashboard value audit:** an honest classification of all 43 tabs into closed
   loops, conditional surfaces and dead ends, with an activation plan. Empty
   collections now explain why they are empty and offer the action that fills
@@ -76,7 +82,11 @@
   telemetry monitoring is claimed, and the system does not determine legal
   status under humanitarian law. Policy and Evidence bind to real `/v1/policies`
   and signed `/v1/vap/receipts` data; the fabricated detection scores and alerts
-  were removed. The Audit Trail now reads real `/v1/audit/logs`.
+  were removed. The Audit Trail now reads real `/v1/audit/logs`. Control-layer
+  KPIs derive from live data with `—` where the source is absent; the status badge
+  reads `/v1/guardian/status`; emergency override calls the real kill-switch
+  endpoint; the autonomy selector is labelled advisory only; and the regulatory
+  card states design intent rather than compliance.
 - **ADEM primitives (feature-flagged, default off):** signed JWS/CWT emblems for
   the IETF DIEM workstream (`draft-linker-diem-adem-core-00`,
   `draft-ietf-diem-requirements-03`) with a `/.well-known/adem/{asset_id}`
