@@ -9,7 +9,7 @@
 ## Verification baseline
 
 - Reference implementation: `github.com/rajinderjhol/VeriLinkOS`
-- Full test suite: **935 passed, 29 skipped, 1 xfailed** (2026-11-22)
+- Full test suite: **948 passed, 29 skipped, 1 xfailed** (2026-11-22)
 - Live API smoke test: 16/16 checks (2026-11-22)
 - Offline verifier parity: Python / JS / standalone / Studio all passing
 - Conformance self-test vectors: 24/24 (see [CONFORMANCE.md](CONFORMANCE.md))
@@ -32,6 +32,9 @@
   anti-gaming checks, and `dqi.v2` clinical profile in PersonaVault. VAP DQI is
   frozen into the signed receipt at signing time; v1 snapshots remain verifiable.
   No integrity check, approval, or enforcement path reads a DQI score.
+- **Signed offline verification bundle:** a third party can verify a receipt with
+  no account, network or platform trust. All verifier surfaces share one engine,
+  and differential tests assert identical verdicts. See [OFFLINE_BUNDLE.md](OFFLINE_BUNDLE.md).
 - **Conformance self-tests:** offline vector runner for ARAS v1.0 scoring, A2A gateway
   lifecycle and MCP JSON-RPC 2.0. See [CONFORMANCE.md](CONFORMANCE.md). These are
   self-tests, **not** external certification.
@@ -84,7 +87,7 @@
 
 ## Note on numbers in older documents
 
-Whitepapers and blog posts that cite "197+ tests" or "913 tests" were accurate
-when written; the current VeriLinkOS baseline is **935 passing tests** as of
-2026-11-22. PersonaVault has its own separate suite and is not included in this
-number.
+Whitepapers and blog posts that cite "197+ tests", "913 tests" or "935 tests"
+were accurate when written; the current VeriLinkOS baseline is **948 passing
+tests** as of 2026-11-22. PersonaVault has its own separate suite (897 passing)
+and is not included in this number.

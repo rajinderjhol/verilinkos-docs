@@ -4,6 +4,7 @@
 > **Current implementation status:** [STATUS.md](STATUS.md) (2026-11-22).
 > Post-quantum evidence: [PQ_EVIDENCE.md](PQ_EVIDENCE.md).
 > Conformance self-tests: [CONFORMANCE.md](CONFORMANCE.md) (external certification **not** claimed).
+> Offline verification bundle: [OFFLINE_BUNDLE.md](OFFLINE_BUNDLE.md).
 > DID support boundary: [DID_INTEROP.md](DID_INTEROP.md).
 > It supersedes older test counts and "shipped" claims in historical documents.
 
