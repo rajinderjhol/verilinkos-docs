@@ -196,7 +196,7 @@ The Guardian Layer provides **fail-closed enforcement**: if verification fails, 
 |--------|-------|
 | **Enforcement Latency** | <100ms |
 | **Supported Agents** | 10,000+ |
-| **Test Coverage** | 909 tests passing (as of 2026-11-21) |
+| **Test Coverage** | 913 tests passing (as of 2026-11-21) |
 | **Deployment** | Sovereign (on-prem or any cloud) |
 
 ### 6.4 Compliance Mapping

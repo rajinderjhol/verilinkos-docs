@@ -15,7 +15,7 @@
 
 ## Abstract
 
-The emergence of autonomous AI agents as first-class actors in enterprise systems creates a fundamental governance gap: how do we control, track, and prove the actions of non-human agents that operate at scale, make decisions independently, and transact with other autonomous systems? We present VeriLinkOS, a production control plane that implements the formal principles of revertible effects and reactive coeffects—previously established in the Cordis framework—specifically for the domain of autonomous AI agents. VeriLinkOS provides five integrated layers: cryptographic identity (W3C DIDs), policy-based authorization (OPA/Rego), fail-closed runtime enforcement (Guardian), verifiable action receipts (VAP), and agent-to-agent settlement. We describe the system architecture, formal mapping to revertible effect theory, implementation in a production-ready Python/FastAPI codebase with 909 passing tests (as of 2026-11-21), and validation through PersonaVault, a sovereign decision engine built on VeriLinkOS. Our experience demonstrates that the formal principles of dynamic composability, extended with cryptographic proof and cross-organizational trust, provide a viable foundation for governing autonomous agentic systems at enterprise scale. The system is currently undergoing enterprise pilot validation with early adopters.
+The emergence of autonomous AI agents as first-class actors in enterprise systems creates a fundamental governance gap: how do we control, track, and prove the actions of non-human agents that operate at scale, make decisions independently, and transact with other autonomous systems? We present VeriLinkOS, a production control plane that implements the formal principles of revertible effects and reactive coeffects—previously established in the Cordis framework—specifically for the domain of autonomous AI agents. VeriLinkOS provides five integrated layers: cryptographic identity (W3C DIDs), policy-based authorization (OPA/Rego), fail-closed runtime enforcement (Guardian), verifiable action receipts (VAP), and agent-to-agent settlement. We describe the system architecture, formal mapping to revertible effect theory, implementation in a production-ready Python/FastAPI codebase with 913 passing tests (as of 2026-11-21), and validation through PersonaVault, a sovereign decision engine built on VeriLinkOS. Our experience demonstrates that the formal principles of dynamic composability, extended with cryptographic proof and cross-organizational trust, provide a viable foundation for governing autonomous agentic systems at enterprise scale. The system is currently undergoing enterprise pilot validation with early adopters.
 
 ---
 
@@ -436,7 +436,7 @@ VeriLinkOS/
 │   └── ...
 ├── verilink_sdk.py       # Python SDK
 ├── verilink-verifier/    # Open-source verifier package
-├── tests/                # 909 passing tests (2026-11-21)
+├── tests/                # 913 passing tests (2026-11-21)
 └── k8s/                  # Kubernetes deployment manifests
 ```
 
@@ -589,7 +589,7 @@ This mechanism ensures that an auditor can verifiably link the final settled sta
 
 ### 5.4. Testing and Quality
 
-VeriLinkOS maintains 909 passing tests (30 skipped, 1 xpassed) as of 2026-11-21:
+VeriLinkOS maintains 913 passing tests (29 skipped, 1 xfailed) as of 2026-11-21:
 
 ```bash
 $ pytest -v
@@ -605,7 +605,7 @@ test_trust_passport.py ............. PASSED
 test_policy_engine.py .............. PASSED
 ...
 
-============================= 909 passed (2026-11-21) ==============================
+============================= 913 passed (2026-11-21) ==============================
 ```
 
 ---
@@ -657,7 +657,7 @@ VeriLinkOS is currently in the **enterprise pilot validation phase** (Q4 2026 / 
 |-------------------|-------|--------|
 | Simulation & Test Environment | 12,840+ simulated agents | ✅ Complete |
 | PersonaVault Reference Implementation | Full decision engine | ✅ Complete |
-| Test Suite | 909 passing tests (2026-11-21) | ✅ Complete |
+| Test Suite | 913 passing tests (2026-11-21) | ✅ Complete |
 | Security Auditing | Internal security review | ✅ Complete |
 | Enterprise Pilots | Early adopter engagements | 🔄 In Progress |
 
@@ -669,7 +669,7 @@ VeriLinkOS is currently in the **enterprise pilot validation phase** (Q4 2026 / 
 | Autonomous Actions | Local/offline Merkle anchor on every receipt; optional on-chain anchor |
 | Simulated Settled Value | $4.85M+ |
 | Guardian SLA | <100ms fail-closed response |
-| Test Coverage | 909 passing / 0 failing (as of 2026-11-21) |
+| Test Coverage | 913 passing / 0 failing (as of 2026-11-21) |
 
 ### 6.5. Enterprise Pilot Engagement
 

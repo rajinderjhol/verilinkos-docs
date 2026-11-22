@@ -1,8 +1,10 @@
 # VeriLinkOS Documentation
 **AI Safety, Security, and Governance. Trust but Verify.**
 
-> **Current implementation status:** [STATUS.md](STATUS.md) (2026-11-21).
+> **Current implementation status:** [STATUS.md](STATUS.md) (2026-11-22).
 > Post-quantum evidence: [PQ_EVIDENCE.md](PQ_EVIDENCE.md).
+> Conformance self-tests: [CONFORMANCE.md](CONFORMANCE.md) (external certification **not** claimed).
+> DID support boundary: [DID_INTEROP.md](DID_INTEROP.md).
 > It supersedes older test counts and "shipped" claims in historical documents.
 
 VeriLinkOS is the **Sovereign Safety Kernel** for the autonomous age. It provides the fail-closed governance, cryptographic safety, and forensic provenance required to protect your **Digital Titles** and secure your **Digital Infrastructure** at enterprise scale.
