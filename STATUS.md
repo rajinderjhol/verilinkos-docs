@@ -9,7 +9,7 @@
 ## Verification baseline
 
 - Reference implementation: `github.com/rajinderjhol/VeriLinkOS`
-- Full test suite: **1016 passed, 29 skipped, 1 xfailed** (2026-11-22)
+- Full test suite: **1026 passed, 29 skipped, 1 xfailed** (2026-11-23)
 - Live API smoke test: 16/16 checks (2026-11-22)
 - Offline verifier parity: Python / JS / standalone / Studio all passing
 - Conformance self-test vectors: 37/37 (see [CONFORMANCE.md](CONFORMANCE.md))
@@ -46,11 +46,28 @@
   VAP-proof claim is made. See
   [RISK_EXPOSURE_AND_LOSS_MODEL.md](RISK_EXPOSURE_AND_LOSS_MODEL.md) for the
   formulas that do exist and the gaps to production readiness.
+- **Stage 0 loss substrate:** signed loss observations, an admin-approved
+  methodology registry, signed *descriptive* score attestations with
+  `insufficient_data` semantics, and a standalone offline verifier. Scores are
+  advisory only (`advisory_only: true`, `predictive: false`); no approval,
+  enforcement or receipt-integrity path consumes them. No probability, premium
+  or pricing claim is made. The "Loss & Risk Control" dashboard tab exposes the
+  observations, methodology version, signed score and bundle download; the
+  Guardian Risk Exposure card links to it.
 - **Dashboard value audit:** an honest classification of all 43 tabs into closed
   loops, conditional surfaces and dead ends, with an activation plan. Empty
   collections now explain why they are empty and offer the action that fills
   them across the top 10 tabs. The four Consoles workspaces (Guardian, Trust
-  Center, Insurance, Commerce) no longer fabricate data on failure. See
+  Center, Insurance, Commerce) no longer fabricate data on failure. The Agent
+  Roster's six scorecards and the Singapore MGF D1–D5 alignment row are restored,
+  backed by live agent, receipt, HITL, FinOps and governance-scorecard data;
+  calculation modals no longer use invented fallback numbers. Clicking an MGF
+  card opens an interactive detail view with the formula, what-if sliders
+  (locally recomputed, never saved) and a real evidence list. All sidebar hubs
+  are expanded by default so no tab is hidden. The four Console workspaces were
+  audited and de-faked: no fabricated carrier names, percentages, scores,
+  premiums, compliance checkmarks or `Math.random()` charts remain; the Trust
+  QR uses the local encoder. See
   [DASHBOARD_VALUE_AUDIT.md](DASHBOARD_VALUE_AUDIT.md).
 - **Link Safety decisions:** a URL check produces a signed advisory `LNK-*`
   decision with attributable intel signals (source, confidence, timestamp),
@@ -155,5 +172,5 @@
 
 Whitepapers and blog posts that cite "197+ tests", "913 tests", "935 tests",
 "948 tests", "976 tests", "982 tests" or "986 tests" were accurate when written;
-the current VeriLinkOS baseline is **1016 passing tests** as of 2026-11-22. PersonaVault has
+the current VeriLinkOS baseline is **1026 passing tests** as of 2026-11-23. PersonaVault has
 its own separate suite (897 passing) and is not included in this number.
