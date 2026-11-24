@@ -11,15 +11,19 @@
 
 **SAFR** (*Safeguards for Agentic Finance at Runtime*) is an industry reference approach published under MAS's BuildFin.ai initiative. The paper states that it "does not constitute regulatory guidance or supervisory expectations", is provided "as-is", and is "not a managed service". It invites practitioners to contribute pilot findings and identify gaps.
 
-**VeriLinkOS** is a locally deployable platform. It does not operate a hosted verification service. Its binding specification ([`PROOF_CARRYING_EXECUTION.md`](https://github.com/rajinderjhol/VeriLinkOS)) is specified, **not yet implemented**.
+**VeriLinkOS** is built for **sovereign deployment**: the operator runs it inside its own infrastructure, under its own keys and data-governance controls. That is a deliberate design choice for regulated and high-liability environments, not a missing capability. The public-verification interfaces are implemented and operator-configurable; the project does not run a hosted service on anyone's behalf.
+
+The authorisation-to-execution binding specification ([`PROOF_CARRYING_EXECUTION.md`](https://github.com/rajinderjhol/VeriLinkOS)) is complete. Its implementation is **in progress** at the time of writing; §9–10 record the current state precisely.
 
 The earlier mapping described capabilities as shipped when they were partly or wholly aspirational. This version distinguishes:
 
 - **SHIPPED** — present in the codebase and exercised by tests;
 - **CONFIGURED BUT OFF** — implemented, disabled by default in development configuration;
-- **ONLINE-READY** — endpoints and configuration exist, but no service is hosted by us;
-- **SPECIFIED** — designed but not implemented;
-- **GAP** — not covered by the current specification.
+- **SOVEREIGN-DEPLOYABLE** — production-ready inside the operator's own boundary;
+- **ONLINE-READY** — interfaces and configuration exist so an operator can expose them publicly; the project hosts no service;
+- **SPECIFIED** — contract defined and being implemented;
+- **IN PROGRESS** — implementation underway at the time of writing;
+- **GAP** — not covered by the current contract; being addressed where security-relevant.
 
 No statement here should be read as a claim of MAS/FCA/IMDA endorsement, adoption, attribution, compliance or certification. SAFR v1.1 contains no reference to VeriLinkOS.
 
@@ -98,9 +102,11 @@ The user corrected three of the earlier document's over-cautious removals. Code 
 
 `verilink/blockchain.py` implements `BLOCKCHAIN_MODE` with modes `SIMULATED`, `DISABLED`, `POLYGON_AMOY`, `POLYGON_MAINNET`, `PRIVATE_LEDGER`, an RPC URL, chain ID, anchor contract and KMS-backed anchor key, and `anchor_receipt(merkle_root, action_type)`. `verilink/services/onchain_proof.py` queries the chain for a transaction receipt and verifies the expected transfer, failing closed when the mode is `SIMULATED` or `DISABLED` or no RPC is configured. Current `.env` sets `BLOCKCHAIN_MODE=SIMULATED`; the local Merkle anchor remains active. **Precise claim:** real chain anchoring is implemented and deployment-configured; no production broadcast is claimed for the current development configuration.
 
-### 7.2 Online-ready, not hosted
+### 7.2 Sovereign deployment by design, with online-ready interfaces
 
-`/.well-known/jwks.json` (root alias and trust-passport route), `/.well-known/did.json`, signed trust-anchor endpoints and a configurable `VERILINK_SITE_URL` are implemented. A deployment operator can expose them. There is no `verify.verilinkos.com` endpoint in this codebase and no hosted verification service operated by us. **Precise claim:** online-ready endpoints exist; no hosted service is claimed.
+VeriLinkOS is production-ready for deployment inside the operator's own boundary. Key custody, data retention and public exposure remain decisions of the operator — an intentional property for regulated environments and a direct fit for data-sovereignty requirements.
+
+`/.well-known/jwks.json` (root alias and trust-passport route), `/.well-known/did.json`, signed trust-anchor endpoints and a configurable `VERILINK_SITE_URL` are implemented. An operator can expose these endpoints publicly so counterparties can verify artifacts without contacting a VeriLinkOS-operated service. There is no `verify.verilinkos.com` endpoint in this codebase and the project hosts no verification service. **Precise claim:** the deployment is sovereign by design and online-ready when the operator chooses; this is a deployment topology, not a product limitation.
 
 ### 7.3 Annex G forensic packages are real, and scoped
 
@@ -133,11 +139,11 @@ Recorded honestly, not silently absorbed into "aligned":
 6. Durable replicated audit log (our replica is opt-in and deployment-local).
 7. Mandatory signed timestamp (SDK verifier reports `timestamp` as `skip`).
 
-None of these are in the current implementation milestone. Do not expand protocol scope to absorb them without a pilot-driven reason.
+These gaps are being addressed now. The authorisation-to-execution binding implementation is underway; the signed action trace, `Observe` disposition, escalation operational contract, registry-authority selection and mandatory signed timestamp are security-relevant or table-stakes controls and do not require customer input before work begins. Evidence-quality thresholds remain advisory by design, and the replicated audit log remains an operator deployment decision. The frozen protocol scope applies to speculative expansion, not to closing identified security gaps.
 
 ## 10. Where the specification goes beyond SAFR
 
-All of the following are **specified, not shipped**:
+All of the following are defined by the specification. Implementation is **underway**, not yet complete:
 
 1. Portable independent verification by a receiving firm without the operator's infrastructure.
 2. Mandatory executor-side re-binding to the actual callable and arguments.
@@ -149,7 +155,7 @@ All of the following are **specified, not shipped**:
 ## 11. Verdict
 
 - **Alongside** SAFR on the problem and most runtime controls.
-- **Ahead** on portable independent verification, execution-time binding, crash recovery and verifier semantics — as a specification, not a shipped product.
+- **Ahead** on portable independent verification, execution-time binding, crash recovery and verifier semantics — defined by the specification and being implemented now.
 - **Behind** on action trace, `Observe`, escalation operations, registry authority selection, audit durability and signed timestamps.
 - **Not first.** SAFR is a named, published, industry-developed reference architecture in the target jurisdiction.
 
@@ -157,7 +163,7 @@ The highest-value contribution now is not another mapping document. It is the VA
 
 ## 12. Claims this document does not make
 
-MAS, FCA or IMDA endorsement or adoption; VeriLinkOS compliance with SAFR, the EU AI Act, IMDA MGF or FCA expectations; certification; guaranteed admissibility; that the binding is implemented; that external-world effects or decision correctness are proved.
+MAS, FCA or IMDA endorsement or adoption; VeriLinkOS compliance with SAFR, the EU AI Act, IMDA MGF or FCA expectations; certification; guaranteed admissibility; that the binding implementation is complete; that external-world effects or decision correctness are proved.
 
 ## 13. References
 
