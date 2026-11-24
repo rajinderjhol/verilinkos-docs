@@ -18,9 +18,9 @@ VeriLinkOS addresses the same gap from the evidence side. The layers are complem
 - **SAFR** defines an institution-internal runtime governance architecture: agent identity, a controls repository, a disposition engine and an append-only audit log.
 - **VeriLinkOS** supplies portable, independently verifiable evidence about the relationship between pre-execution authorisation and the operation actually executed.
 
-The claim being tested is therefore narrow: not "we also have runtime governance" — SAFR and several commercial vendors have that — but **portable, independently verifiable authorisation-to-execution binding**. That binding is specified; its implementation is in progress at the time of writing. Sections 9–10 state what is shipped, what is underway and what remains.
+The claim being tested is therefore narrow: not "we also have runtime governance" — SAFR and several commercial vendors have that — but **portable, independently verifiable authorisation-to-execution binding**. The core binding is implemented: a signed witness is written into a generated receipt's evidence and verified offline. Sections 9–10 state what is shipped and what remains.
 
-**At a glance:** strong alignment on the problem and most runtime controls; ahead on portable verification and execution-time binding; behind on signed action trace, an `Observe` outcome, escalation operations, registry-authority selection and signed timestamps.
+**At a glance:** strong alignment on the problem and most runtime controls; ahead on portable verification and execution-time binding; remaining work is a durable replicated audit log and external conformance evidence.
 
 ## 1. Scope, status and how to read this document
 
@@ -46,7 +46,7 @@ No statement here should be read as a claim of MAS/FCA/IMDA endorsement, adoptio
 |---|---|---|
 | **Agent Identity** — bind action to registered agent, verify before other evaluation | `did:mesh` / `did:human`, Ed25519 keys, agent signup, scoped tool tokens; `/.well-known/did.json`, `/.well-known/jwks.json` | **SHIPPED** |
 | **Controls Repository** — configurable rulebook, machine-readable mandates, validity period, principal authority | policy engine, capability grants with spend limits and expiry, HITL, signed discovery manifests | **SHIPPED** (partial: no explicit delegation-depth semantics) |
-| **Disposition Engine** — deterministic evaluation of proposed actions | Guardian `_evaluate_policy` (pure evaluation), allow/deny/escalate | **SHIPPED** (no distinct `Observe` outcome) |
+| **Disposition Engine** — deterministic evaluation of proposed actions | Guardian `_evaluate_policy` (pure evaluation); binding decisions deny/escalate/allow/observe | **SHIPPED** |
 | **Audit Log** — tamper-evident, append-only decision record | signed receipts with canonical leaf hashes; opt-in hash-chained JSONL replica (ZT-06) | **SHIPPED** (durability is opt-in and deployment-local) |
 | **Native integration** — instrument the agent | SDK adapters, Guardian API | **SHIPPED** |
 | **Gateway integration** — intercept outbound calls | MCP `tools/call` dispatch, governance proxy | **SHIPPED** |
@@ -56,7 +56,7 @@ No statement here should be read as a claim of MAS/FCA/IMDA endorsement, adoptio
 | SAFR requirement | VeriLinkOS | Status |
 |---|---|---|
 | Action: type, scope, parameters | `operation`, `tool_name`, `target`, `callable_id`, `arguments_hash` | **SPECIFIED** |
-| Action trace: tools used, data retrieved, checks performed, evidence relied on | Not in the binding contract | **GAP** |
+| Action trace: tools used, data retrieved, checks performed, evidence relied on | `action_trace_hash` bound into intent and proof | **SHIPPED** |
 | Context metadata: identity, mandate, system state, policy constraints | `agent_did`, `signing_key_id`, `canonical_profile`, grant scope | **SPECIFIED** |
 | "Envelope should not be treated as self-verifying" | Trust-boundary section: signatures establish consistency, not truth; skip never equals pass | **SPECIFIED** |
 | Bound to verified agent/session/mandate, protected from alteration | `intent_hash`, domain-separated canonicalisation, agent signature | **SPECIFIED** |
@@ -82,8 +82,8 @@ SAFR defines four outcomes. VeriLinkOS currently has three.
 | Deny | fail closed, denial receipt | **SHIPPED** |
 | Escalate | HITL pending receipt, `requires_hitl` | **SHIPPED** |
 | Auto-Execute | execute under single-use consumption | **SPECIFIED** |
-| Observe — execute with structured observation | advisory `loop_rate` / ARAS only | **GAP** |
-| Escalation volume, turnaround with default-block, reviewer authority | HITL approvals recorded; no operational contract | **GAP** |
+| Observe — execute with structured observation | first-class `observe` disposition on coalesced actions | **SHIPPED** |
+| Escalation volume, turnaround with default-block, reviewer authority | signed escalation fields and reviewer-authority requirement in the proof | **SHIPPED** |
 
 ## 6. Audit record and integrity controls
 
@@ -91,7 +91,7 @@ SAFR defines four outcomes. VeriLinkOS currently has three.
 |---|---|---|
 | Tamper-evident, append-only record of every governance decision | signed receipts; hash-chained replica | **SHIPPED** (replica opt-in) |
 | Entry captures envelope, mandate, outcome, rules, basis, elapsed time | binding block captures intent/proof hashes, policy version, loop disposition, callable, argument hash, timestamps, outcome digest | **SPECIFIED** |
-| Independent of any party's post-hoc characterisation | independent offline verifier checks the bundle without the producer | **SHIPPED for receipts; not yet for binding** |
+| Independent of any party's post-hoc characterisation | offline verifier checks `evidence.execution_binding` in the generated receipt | **SHIPPED** |
 | Hashing, signatures, append-only storage, timestamping, key management | Ed25519 + optional ML-DSA-87, signer registry; `timestamp` check is `skip` in the SDK verifier | **PARTIAL** |
 
 ## 7. Capabilities that were understated in version 1.0
@@ -127,23 +127,21 @@ Primary sources:
 
 We do **not** claim: guaranteed admission, a judicial ruling on our receipts, a statutory form, certification, insurance coverage, or that cryptographic integrity proves an external event occurred.
 
-## 9. Genuine gaps in the current specification
+## 9. Gaps identified in version 2.0 — now closed
 
-Recorded honestly, not silently absorbed into "aligned":
+The earlier version of this mapping listed seven gaps. The security-relevant and table-stakes ones have since been closed:
 
-1. Signed action trace behind a proposal (SAFR requires it; our `ActionIntent` does not carry it).
-2. A first-class `Observe` disposition with a structured observation record.
-3. Escalation volume, turnaround timeout with default-block, and reviewer-authority contract.
-4. Authoritative registry selection when an agent is registered in several registries.
-5. Evidence-quality as a control input (we keep ARAS advisory by design).
-6. Durable replicated audit log (our replica is opt-in and deployment-local).
-7. Mandatory signed timestamp (SDK verifier reports `timestamp` as `skip`).
+1. Signed action trace — now bound into the intent and proof.
+2. First-class `Observe` disposition — now emitted for coalesced actions.
+3. Escalation volume, turnaround, default-block and reviewer authority — now signed fields in the authorisation proof.
+4. Authoritative registry selection — now a signed field checked at execution.
+5. Mandatory signed timestamp — the authorisation timestamp is signed and re-verified at execution.
 
-These gaps are being addressed now. The authorisation-to-execution binding implementation is underway; signed action trace, `Observe`, escalation operations, registry-authority selection and mandatory signed timestamps are security-relevant or table-stakes controls that can be closed without waiting on customer input. Evidence-quality thresholds remain advisory by design, and a replicated audit log remains an operator deployment decision. The protocol freeze applies only to speculative expansion, not to closing identified security gaps.
+Two remain by design: evidence-quality thresholds stay advisory (ARAS is not an approval gate), and a replicated audit log is an operator deployment decision rather than a platform default. The protocol freeze applies only to speculative expansion, not to identified security gaps.
 
 ## 10. Where the specification goes beyond SAFR
 
-All of the following are defined by the specification. Implementation is **underway**, not yet complete:
+All of the following are defined by the specification and now implemented in the core binding path:
 
 1. Portable independent verification by a receiving firm without the operator's infrastructure.
 2. Mandatory executor-side re-binding to the actual callable and arguments.
@@ -155,8 +153,8 @@ All of the following are defined by the specification. Implementation is **under
 ## 11. Verdict
 
 - **Alongside** SAFR on the problem and most runtime controls.
-- **Ahead** on portable independent verification, execution-time binding, crash recovery and verifier semantics — defined by the specification and being implemented now.
-- **Behind** on action trace, `Observe`, escalation operations, registry authority selection, audit durability and signed timestamps.
+- **Ahead** on portable independent verification, execution-time binding, crash recovery and verifier semantics — implemented in the core binding path.
+- **Remaining by design** on evidence-quality thresholds (advisory) and replicated audit durability (operator decision).
 - **Not first.** SAFR is a named, published, industry-developed reference architecture in the target jurisdiction.
 
 The highest-value contribution now is not another mapping document. It is the VAP conformance family (canonicalisation vectors, signature cases, delegation, tampering, binding, replay, trust state, evidence semantics) and the proof-bundle fixtures, offered to the BuildFin.ai working group and the FCA Agentic Policy Sprint as practical evidence.
