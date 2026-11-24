@@ -7,15 +7,28 @@
 
 ---
 
-## 0. Scope and honesty
+## 0. Executive summary
+
+SAFR and VeriLinkOS were designed against the same problem. SAFR states:
+
+> "What is needed is a governance layer that operates at the point of action. For each agentic system and action type, institutions need to establish what the system is authorised to do, how proposed actions are assessed at runtime before execution, and what records are retained to support review, accountability, and remediation when outcomes diverge from intent."
+
+VeriLinkOS addresses the same gap from the evidence side. The layers are complementary:
+
+- **SAFR** defines an institution-internal runtime governance architecture: agent identity, a controls repository, a disposition engine and an append-only audit log.
+- **VeriLinkOS** supplies portable, independently verifiable evidence about the relationship between pre-execution authorisation and the operation actually executed.
+
+The claim being tested is therefore narrow: not "we also have runtime governance" — SAFR and several commercial vendors have that — but **portable, independently verifiable authorisation-to-execution binding**. That binding is specified; its implementation is in progress at the time of writing. Sections 9–10 state what is shipped, what is underway and what remains.
+
+**At a glance:** strong alignment on the problem and most runtime controls; ahead on portable verification and execution-time binding; behind on signed action trace, an `Observe` outcome, escalation operations, registry-authority selection and signed timestamps.
+
+## 1. Scope, status and how to read this document
 
 **SAFR** (*Safeguards for Agentic Finance at Runtime*) is an industry reference approach published under MAS's BuildFin.ai initiative. The paper states that it "does not constitute regulatory guidance or supervisory expectations", is provided "as-is", and is "not a managed service". It invites practitioners to contribute pilot findings and identify gaps.
 
 **VeriLinkOS** is built for **sovereign deployment**: the operator runs it inside its own infrastructure, under its own keys and data-governance controls. That is a deliberate design choice for regulated and high-liability environments, not a missing capability. The public-verification interfaces are implemented and operator-configurable; the project does not run a hosted service on anyone's behalf.
 
-The authorisation-to-execution binding specification ([`PROOF_CARRYING_EXECUTION.md`](https://github.com/rajinderjhol/VeriLinkOS)) is complete. Its implementation is **in progress** at the time of writing; §9–10 record the current state precisely.
-
-The earlier mapping described capabilities as shipped when they were partly or wholly aspirational. This version distinguishes:
+This document compares SAFR v1.1 with the VeriLinkOS authorisation-to-execution binding contract (VAP is the Verifiable Action Protocol; ARAS is an advisory risk-assessment standard; loop governance is a recent addition to the runtime). The contract itself is not reproduced here. Status labels are used deliberately:
 
 - **SHIPPED** — present in the codebase and exercised by tests;
 - **CONFIGURED BUT OFF** — implemented, disabled by default in development configuration;
@@ -26,19 +39,6 @@ The earlier mapping described capabilities as shipped when they were partly or w
 - **GAP** — not covered by the current contract; being addressed where security-relevant.
 
 No statement here should be read as a claim of MAS/FCA/IMDA endorsement, adoption, attribution, compliance or certification. SAFR v1.1 contains no reference to VeriLinkOS.
-
-## 1. Executive summary
-
-SAFR and VeriLinkOS were designed against the same problem. SAFR states:
-
-> "What is needed is a governance layer that operates at the point of action. For each agentic system and action type, institutions need to establish what the system is authorised to do, how proposed actions are assessed at runtime before execution, and what records are retained to support review, accountability, and remediation when outcomes diverge from intent."
-
-That is the same gap our binding specification addresses. The layers are complementary:
-
-- **SAFR** defines an institution-internal runtime governance architecture: identity, controls, disposition, audit log.
-- **VeriLinkOS** supplies portable, independently verifiable evidence about the relationship between pre-execution authorisation and the operation actually executed.
-
-The differentiated claim is **not** "we also have runtime governance". SAFR has that, and so do several commercial vendors. The differentiated claim is the **portable, independently verifiable authorisation-to-execution binding** — once implemented and demonstrated.
 
 ## 2. Runtime components
 
@@ -96,7 +96,7 @@ SAFR defines four outcomes. VeriLinkOS currently has three.
 
 ## 7. Capabilities that were understated in version 1.0
 
-The user corrected three of the earlier document's over-cautious removals. Code inspection confirms the corrections.
+Version 1.0 understated three capabilities. Code inspection confirms the following corrections; each is phrased as a precise claim rather than a broad one.
 
 ### 7.1 Blockchain anchoring is real, and disabled in development
 
@@ -114,7 +114,7 @@ VeriLinkOS is production-ready for deployment inside the operator's own boundary
 
 ## 8. Singapore legal position — precise claim
 
-Cryptographic receipts are valuable under Singapore law and **can constitute electronic evidence in court**. The precise formulation, already maintained in [`EVIDENCE_CAPABILITY_AND_LEGAL_FOUNDATION.md`](https://github.com/rajinderjhol/VeriLinkOS), is:
+Cryptographic receipts are valuable under Singapore law and **can constitute electronic evidence in court**. The project's precise formulation is:
 
 > **VeriLinkOS produces court-admissible electronic records in principle — records with the integrity, signature and timestamp properties that engage the statutory presumptions for electronic evidence. Whether a court admits a specific receipt, and what weight it gives it, is for that court.**
 
@@ -139,7 +139,7 @@ Recorded honestly, not silently absorbed into "aligned":
 6. Durable replicated audit log (our replica is opt-in and deployment-local).
 7. Mandatory signed timestamp (SDK verifier reports `timestamp` as `skip`).
 
-These gaps are being addressed now. The authorisation-to-execution binding implementation is underway; the signed action trace, `Observe` disposition, escalation operational contract, registry-authority selection and mandatory signed timestamp are security-relevant or table-stakes controls and do not require customer input before work begins. Evidence-quality thresholds remain advisory by design, and the replicated audit log remains an operator deployment decision. The frozen protocol scope applies to speculative expansion, not to closing identified security gaps.
+These gaps are being addressed now. The authorisation-to-execution binding implementation is underway; signed action trace, `Observe`, escalation operations, registry-authority selection and mandatory signed timestamps are security-relevant or table-stakes controls that can be closed without waiting on customer input. Evidence-quality thresholds remain advisory by design, and a replicated audit log remains an operator deployment decision. The protocol freeze applies only to speculative expansion, not to closing identified security gaps.
 
 ## 10. Where the specification goes beyond SAFR
 
@@ -167,10 +167,10 @@ MAS, FCA or IMDA endorsement or adoption; VeriLinkOS compliance with SAFR, the E
 
 ## 13. References
 
-1. MAS, *Safeguards for Agentic Finance at Runtime*, v1.1, 9 Oct 2026.
-2. IMDA, *Model AI Governance Framework for Agentic AI*, v1.5, May/June 2026.
-3. FCA, *Our approach to Agentic AI*, 24 Nov 2026.
-4. Singapore Evidence Act 1893, s 116A and s 64 Explanation 3.
-5. Singapore Electronic Transactions Act 2010, s 19.
-6. *GIL v Public Prosecutor* [2025] SGCA 21.
-7. VeriLinkOS, *Proof-Carrying Execution* and *Proof Bundle v0* specifications.
+1. MAS, [*Safeguards for Agentic Finance at Runtime*](https://www.mas.gov.sg/publications/monographs-or-information-paper/2026/safeguards-for-agentic-finance-at-runtime), v1.1, 9 Oct 2026.
+2. IMDA, [*Model AI Governance Framework for Agentic AI*](https://www.imda.gov.sg/about-imda/emerging-technologies-and-research/artificial-intelligence), v1.5, May/June 2026.
+3. FCA, [*Our approach to Agentic AI*](https://www.fca.org.uk/firms/innovation/ai-approach/agentic-ai), 24 Nov 2026.
+4. Singapore [Evidence Act 1893](https://sso.agc.gov.sg/Act/EA1893), s 116A and s 64 Explanation 3.
+5. Singapore [Electronic Transactions Act 2010](https://sso.agc.gov.sg/Act/ETA2010), s 19.
+6. [*GIL v Public Prosecutor* [2025] SGCA 21](https://www.elitigation.sg/gd/s/2025_SGCA_21).
+7. VeriLinkOS authorisation-to-execution binding and proof-bundle specifications (reference implementation; not publicly linked).
